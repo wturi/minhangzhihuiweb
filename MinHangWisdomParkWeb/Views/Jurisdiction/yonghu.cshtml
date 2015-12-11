@@ -1,0 +1,319 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    #myModalPiZhun .modal-dialog {
+        width: 50%;
+        min-width: 600px;
+    }
+
+    #myModalPiZhun .modal-body {
+        padding-bottom: 3em;
+    }
+
+        #myModalPiZhun .modal-body button {
+            margin: 0.5em 0.7em;
+        }
+
+    .modal-dialog .modal-body {
+        max-height: 600px;
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+
+    .panel-heading {
+        height: 55px;
+    }
+
+    .panel-body {
+        padding: 0;
+    }
+
+    .xixniqueren {
+        margin-bottom: 2em;
+    }
+</style>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <table class="table table-striped table-hover text-center" id="actortab">
+            <thead>
+                <tr>
+                    <th style="width:30%">姓名</th>
+                    <th style="width:30%">所属业主</th>
+                    <th style="width:30%">分配角色</th>
+                    <th style="width:10%">操作</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-7 text-right">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" id="tianjia">+ 添加</button>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-2"></div>
+</div>
+
+<!-- 添加 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加数据</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group" style="margin-bottom:1.5em;">
+                            <div class="input-group-addon">用户选择:</div>
+                            <input type="text" class="form-control" id="PeblishPeople" tag="" placeholder="点击选择批准人" readonly="readonly" data-toggle="modal" data-target="#myModalPiZhun" />
+                        </div>
+                        <div class="input-group" style="margin-bottom:1.5em;">
+                            <div class="input-group-addon">角色选择:</div>
+                            <select class="form-control" id="juese">
+                                <option class="first" value="-1">请选择角色</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12"><span class="footer-lable"></span></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="queren">确认添加</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--批准人选择框-->
+<div class="modal fade" id="myModalPiZhun" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">用户选择</h4>
+                <ol class="breadcrumb pizhunrumb">
+                    <li><a href="#" tag="1" class="bmt" id="shou">园区</a></li>
+                </ol>
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="请输入业主名用于搜索...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default pinzhunrensuosou" tag="1" type="button"><i class="fa fa-search "></i></button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="请输入人名用于搜索...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default pinzhunrensuosou" tag="2" type="button"><i class="fa fa-search "></i></button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+
+                </div><!-- /.row -->
+
+            </div>
+            <div class="modal-body">
+                <div class="page-header">
+                    <h3>选择部门</h3>
+                </div>
+                <div class="row bumen">
+                </div>
+                <div class="page-header">
+                    <h3>选择人员</h3>
+                </div>
+                <div class="row renyuan">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        ActorPower();//初始化数据
+        PiZhunRen(1);
+        ActorAllSelect();
+    })
+
+    $('#tianjia').click(function () {
+        $('#PeblishPeople').val("");
+        $("#juese option:first").prop("selected", 'selected');
+        $('.footer-lable').text("");
+    })
+
+
+    function ActorPower() {
+        $.post('UserActorSelectJson/', function (data, status) {
+            if (status == 'success') {
+                var str = '';
+                $.each(data, function (i, item) {
+                    str += '  <tr>' +
+                    '<td>' + item.username + '</td>' +
+                    '<td>' + item.ownername + '</td>' +
+                    '<td>' + item.actorname + '</td>' +
+                    '<td><button type="button" class="btn btn-danger shanchu" userid="' + item.userid + '" actorid="' + item.actorid + '">删除</button> </td>' +
+                    '</tr>';
+
+                })
+                $('#actortab').find('tbody').empty().html(str);
+            }
+        })
+
+    }
+
+
+
+
+    $(document).on('click', '.shanchu', function () {
+        var userid = $(this).attr("userid");
+        var actorid = $(this).attr("actorid");
+        $.post('UserActorDeleteJson', { userid: userid, actorid: actorid }, function (data, status) {
+            if (status == 'success') {
+                if (data.msg == 'OK') {
+                    alert("删除成功！");
+                    ActorPower();
+                } else {
+                    alert("删除失败！");
+                }
+            }
+        })
+    })
+
+
+
+    //弹出批准人选择框
+    $('#PeblishPeople').click(function () {
+        $('#shou').parent().nextAll().remove();
+        PiZhunRen(1)
+
+    })
+
+    //刷新部门 id:部门上级id
+    function PiZhunRen(id) {
+        $('.bumen').empty();
+        $('.renyuan').empty();
+        $.post('@Url.Content("~/BusinessApplication/PiZhunRensbumen/")', { id: id }, function (data, status) {
+            if (status == 'success') {
+                var stra = '';
+                $.each(data.BuMens, function (i, item) {
+                    stra += '<button class="col-lg-2 btn btn-info bumenbt" tag=" ' + item.BuMenId + ' "   >' + item.BuMenName + '</button>'
+                })
+                $('.bumen').append(stra);
+
+                var strb = '';
+                $.each(data.RenYuans, function (i, item) {
+                    strb += '<button class="col-lg-2 btn btn-info renyuanbt" tag=" ' + item.RenYuanId + ' ">' + item.RenYuanName + '</button>'
+                })
+                $('.renyuan').append(strb);
+            }
+        })
+    }
+
+    //点击部门刷新
+    $(document).on('click', '.bumenbt', function () {
+        var tag = $(this).attr('tag');
+        var name = $(this).text();
+        PiZhunRen(tag);
+        $('.pizhunrumb').append(' <li><a href="#" tag="' + tag + '" class="bmt">' + name + '</a></li>')
+    })
+
+
+    //点击路径
+    $(document).on('click', '.bmt', function () {
+        var tag = $(this).attr('tag');
+        PiZhunRen(tag);
+        $(this).parent().nextAll().remove();
+    })
+
+
+    //选择人员
+    $(document).on('click', '.renyuanbt', function () {
+        var tag = $(this).attr('tag');
+        var name = $(this).text();
+        $('#PeblishPeople').val(name);
+        $('#PeblishPeople').attr('tag', tag);
+        $('#myModalPiZhun').modal('hide');
+    })
+
+
+    //批准人搜索
+    $(document).on('click', '.pinzhunrensuosou', function () {
+        var tag = $(this).attr('tag');
+        var str = $(this).parent().prev().val();
+        if (tag == '1') {
+            cha(str, '');
+        } else if (tag == '2') {
+            cha('', str);
+        }
+    })
+
+    //批准人搜索ajax
+    function cha(owner, user) {
+        $.post('@Url.Content("~/BusinessApplication/PiZhunRenStr/")', { owner: owner, user: user }, function (data, status) {
+            if (status == 'success') {
+                $('#shou').parent().nextAll().remove();
+                PiZhunRen(data.ownerid);
+            }
+        })
+    }
+
+    function ActorAllSelect() {
+        $.post('@Url.Content("~/Jurisdiction/ActorALLselectjson/")', function (data, status) {
+            if (status == 'success') {
+                var str = '';
+                $.each(data, function (i, item) {
+                    str += '<option class="first" value="' + item.ActorID + '">' + item.ActorName + '</option>';
+                })
+                $('#juese').find('.first').after(str);
+            }
+        })
+    }
+
+
+    $('#juese').change(function () {
+        if ($('#PeblishPeople').attr("tag") == '' || $('#PeblishPeople').attr("tag") == null) {
+            $('.footer-lable').text("请先选择用户!");
+            $("#juese option:first").prop("selected", 'selected');
+            return false;
+        }
+    })
+
+    $('#queren').click(function () {
+        if ($('#PeblishPeople').attr("tag") == '' || $('#PeblishPeople').attr("tag") == null || $('#juese').val() == '-1' || $('#juese').val() == null) {
+            $('.footer-lable').text("用户和角色不能为空！");
+            return false;
+        }
+        var userid = $('#PeblishPeople').attr("tag");
+        var actorid = $('#juese').val();
+
+        $.post('@Url.Content("~/Jurisdiction/UserActorAddJson/")', { userid: userid, actorid: actorid }, function (data, status) {
+
+            if (status == 'success') {
+                if (data.msg == "OK") {
+                    $('.footer-lable').text("操作成功!");
+                    ActorPower();//初始化数据
+                    return false;
+                } else {
+                    alert("操作错误!");
+                    return false;
+                }
+            }
+        })
+
+    })
+
+</script>

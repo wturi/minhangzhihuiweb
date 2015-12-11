@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="491ff9fcbf9647589abff6ede90f55dc" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="ajIIPdbModel.Functions" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.mtActor" Width="1.5" PointX="2.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.mtCamera" Width="1.5" PointX="8.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.mtConfirmAuto" Width="1.5" PointX="8.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.mtConfirmFlow" Width="1.5" PointX="2.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.mtConfirmLevel" Width="1.5" PointX="5.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.mtFunction" Width="1.5" PointX="4.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.mtOwner" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.mtPower" Width="1.5" PointX="10.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.mtRegistrant" Width="1.5" PointX="10.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.mtRfidCode" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.mtUniversalCode" Width="1.5" PointX="10.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.mtUser" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.mtUserActor" Width="1.5" PointX="6.75" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbActorPower" Width="1.5" PointX="2.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbApplyBill" Width="1.5" PointX="8.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbBuniess" Width="1.5" PointX="12.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbCar" Width="1.5" PointX="12.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbCheckInOut" Width="1.5" PointX="13.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbCheckInOuts" Width="1.5" PointX="8.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbConfirmState" Width="1.5" PointX="11" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbFiles" Width="1.5" PointX="14.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbIORecord" Width="1.5" PointX="6" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbOwnerCamera" Width="1.5" PointX="4.75" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbPeblish" Width="1.5" PointX="14.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbPeople" Width="1.5" PointX="10.75" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbProduct" Width="1.5" PointX="14.75" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbReceive" Width="1.5" PointX="15.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbRepair" Width="1.5" PointX="0.75" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbResourceFiles" Width="1.5" PointX="16.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbTemp" Width="1.5" PointX="16.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbWeight" Width="1.5" PointX="16.75" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.mtDevices" Width="1.5" PointX="12.75" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.tbOwnerRfid" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.mdlPeblish" Width="1.5" PointX="14.75" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.twCarLastVersion" Width="1.5" PointX="16.75" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.twIORecord" Width="1.5" PointX="17.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.twOwnerRfidStatus" Width="1.5" PointX="2.75" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.twPeopleLastVersion" Width="1.5" PointX="4.75" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ajIIPdbModel.twProductLastVersion" Width="1.5" PointX="6.75" PointY="19.625" IsExpanded="true" />
+        <AssociationConnector Association="ajIIPdbModel.FK_mtUser_mtOwner" ManuallyRouted="false" />
+        <AssociationConnector Association="ajIIPdbModel.FK_tbOwnerRfid_mtOwner" ManuallyRouted="false" />
+        <AssociationConnector Association="ajIIPdbModel.FK_tbIORecord_mtRfidCode" ManuallyRouted="false" />
+        <AssociationConnector Association="ajIIPdbModel.FK_tbOwnerRfid_mtRfidCode" ManuallyRouted="false" />
+        <AssociationConnector Association="ajIIPdbModel.FK_tbConfirmState_tbApplyBill" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

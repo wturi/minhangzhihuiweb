@@ -1,0 +1,51 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>莘庄工业区西区智慧园区</title>
+    <link href="~/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Styles/Main1.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="main">
+        <div id="ruzhu">
+            <span>入驻企业申请</span>
+        </div>
+        <div id="shigong">
+            <span>建设施工申请</span>
+        </div>
+        <div id="zhengshi">
+            <span>正式出入园区</span>
+        </div>
+        <div id="linshi">
+            <span>临时出入园区</span>
+        </div>
+        <div id="houtai"></div>
+    </div>
+
+    <script src="~/Scripts/jquery-1.11.3.js"></script>
+    <script src="~/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript">
+        $('#ruzhu').click(function () {
+            window.location.href = '../Main/Login?type=入驻企业申请';
+        })
+        $('#shigong').click(function () {
+            window.location.href = '../Main/Login?type=建设施工申请';
+        })
+        $('#zhengshi').click(function () {
+            window.location.href = '../Main/Login?type=正式出入园区';
+        })
+        $('#linshi').click(function () {
+            window.location.href = '../Main/Login?type=临时出入园区';
+        })
+        $('#houtai').click(function () {
+            window.location.href = '../Main/Login';
+        })
+    </script>
+</body>
+</html>

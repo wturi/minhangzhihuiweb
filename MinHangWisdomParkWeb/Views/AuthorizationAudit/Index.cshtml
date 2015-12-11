@@ -1,0 +1,427 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .jumbotron {
+        background-color: white;
+    }
+</style>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="#People" data-toggle="tab">人员制卡</a>
+            </li>
+            <li><a href="#ka" data-toggle="tab">在线挂失</a></li>
+            <li><a href="#SettledEnterprises" data-toggle="tab">入驻企业</a></li>
+            <li><a href="#Construction" data-toggle="tab">建设施工</a></li>
+            @*<li class="dropdown">
+                <a href="#" id="myTabDrop1" class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    网上报修
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop6">
+                    <li><a href="#peopleout" tabindex="-1" data-toggle="tab">物业报修</a></li>
+                    <li><a href="#peoplein" tabindex="-1" data-toggle="tab">公共设施报修</a></li>
+                </ul>
+            </li>*@
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <!--人员制卡申请-->
+            <div class="tab-pane fade in active" id="People">
+
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="搜索..." />
+                    <span class="input-group-btn">
+                        <button type='submit' name='search' tag="0" typename="buniess" typenumber="4" class="btn btn-flat  search-btn"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+
+                <table class="table table-striped table-hover text-center" id="table4">
+                    <thead>
+                        <tr>
+                            <th style="width:25%;">标题</th>
+                            <th style="width:10%;">申请人</th>
+                            <th style="width:15%">所属业主</th>
+                            <th style="width:10%;">申请数量</th>
+                            <th style="width:20%;">申请时间</th>
+                            <th style="width:20%;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.BuniessList1 != null)
+                        {
+                            foreach (MinHangWisdomParkWeb.Controllers.ShenHe b in ViewBag.BuniessList1 as List<MinHangWisdomParkWeb.Controllers.ShenHe>)
+                            {
+                                <tr>
+                                    <td><button type="button" class="btn btn-link buniesstitle" data-toggle="modal" data-target="#ModelPeople" repairid="@b.Content">@b.Title.Split(new string[] { "|+|" }, StringSplitOptions.RemoveEmptyEntries)[0]</button></td>
+                                    <td>@b.Updater</td>
+                                    <td>@b.ownerid</td>
+                                    <td>@b.Title.Split(new string[] { "|+|" }, StringSplitOptions.RemoveEmptyEntries)[2]</td>
+                                    <td>@b.Time</td>
+                                    <td>
+                                        <div class="btn-group" role="group" tag="@b.ApplyID">
+                                            <button type="button" class="btn btn-info tongguo">通过</button>
+                                            <button type="button" class="btn btn-danger Notextapplyid" data-toggle="modal" data-target=".bs-example-modal-sm">不通过</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+
+                <nav class="pull-right">
+                    <ul class="pagination">
+                        <li>
+                            <a href="#" aria-label="Previous" class="ListPrevious" id="paginpre4">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" aria-label="Next" class="ListNext">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!--证卡挂失-->
+            <div class="tab-pane fade" id="ka">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="搜索..." />
+                    <span class="input-group-btn">
+                        <button type='submit' name='search' tag="1" typename="buniess" typenumber="5" class="btn btn-flat search-btn"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+                <table class="table table-striped table-hover text-center" id="table5">
+                    <thead>
+                        <tr>
+                            <th style="width:25%">标题</th>
+                            <th style="width:20%">申请人</th>
+                            <th style="width:15%">所属业主</th>
+                            <th style="width:20%">申请时间</th>
+                            <th style="width:20%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.BuniessList2 != null)
+                        {
+                            foreach (MinHangWisdomParkWeb.Controllers.ShenHe b in ViewBag.BuniessList2 as List<MinHangWisdomParkWeb.Controllers.ShenHe>)
+                            {
+                                <tr>
+                                    <td><button type="button" class="btn btn-link buniesstitle" data-toggle="modal" data-target="#ModelPeople" repairid="@b.Content">@b.Title.Split(new string[] { "|+|" }, StringSplitOptions.RemoveEmptyEntries)[0]</button></td>
+                                    <td>@b.Updater</td>
+                                    <td>@b.ownerid</td>
+                                    <td>@b.Time</td>
+                                    <td>
+                                        <div class="btn-group" role="group" tag="@b.ApplyID">
+                                            <button type="button" class="btn btn-info tongguo">通过</button>
+                                            <button type="button" class="btn btn-danger Notextapplyid"data-toggle="modal" data-target=".bs-example-modal-sm">不通过</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <nav class="pull-right">
+                    <ul class="pagination">
+                        <li>
+                            <a href="#" aria-label="Previous" class="ListPrevious" id="paginpre5">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" aria-label="Next" class="ListNext">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!--入驻企业-->
+
+            <div class="tab-pane fade" id="SettledEnterprises">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="搜索..." />
+                    <span class="input-group-btn">
+                        <button type='submit' name='search' tag="4" typename="buniess" typenumber="6" class="btn btn-flat search-btn"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+                <table class="table table-striped table-hover text-center" id="table6">
+                    <thead>
+                        <tr>
+                            <th style="width:25%">标题</th>
+                            <th style="width:20%">申请人</th>
+                            <th style="width:15%">所属业主</th>
+                            <th style="width:20%">申请时间</th>
+                            <th style="width:20%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.BuniessList3 != null)
+                        {
+                            foreach (MinHangWisdomParkWeb.Controllers.ShenHe b in ViewBag.BuniessList3 as List<MinHangWisdomParkWeb.Controllers.ShenHe>)
+                            {
+                                <tr>
+                                    <td><button type="button" class="btn btn-link buniesstitle" data-toggle="modal" data-target="#ModelPeople" repairid="@b.Content">@b.Title.Split(new string[] { "|+|" }, StringSplitOptions.RemoveEmptyEntries)[0]</button></td>
+                                    <td>@b.Updater</td>
+                                    <td>@b.ownerid</td>
+                                    <td>@b.Time</td>
+                                    <td>
+                                        <div class="btn-group" role="group" tag="@b.ApplyID">
+                                            <button type="button" class="btn btn-info tongguo">通过</button>
+                                            <button type="button" class="btn btn-danger Notextapplyid"data-toggle="modal" data-target=".bs-example-modal-sm">不通过</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <nav class="pull-right">
+                    <ul class="pagination">
+                        <li>
+                            <a href="#" aria-label="Previous" class="ListPrevious" id="paginpre6">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" aria-label="Next" class="ListNext">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!--建设施工-->
+
+            <div class="tab-pane fade" id="Construction">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="搜索..." />
+                    <span class="input-group-btn">
+                        <button type='submit' name='search' tag="5" typename="buniess" typenumber="7" class="btn btn-flat search-btn"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+                <table class="table table-striped table-hover text-center" id="table7">
+                    <thead>
+                        <tr>
+                            <th style="width:25%">标题</th>
+                            <th style="width:20%">申请人</th>
+                            <th style="width:15%">所属业主</th>
+                            <th style="width:20%">申请时间</th>
+                            <th style="width:20%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.BuniessList4 != null)
+                        {
+                            foreach (MinHangWisdomParkWeb.Controllers.ShenHe b in ViewBag.BuniessList4 as List<MinHangWisdomParkWeb.Controllers.ShenHe>)
+                            {
+                                <tr>
+                                    <td><button type="button" class="btn btn-link buniesstitle" data-toggle="modal" data-target="#ModelPeople" repairid="@b.Content">@b.Title.Split(new string[] { "|+|" }, StringSplitOptions.RemoveEmptyEntries)[0]</button></td>
+                                    <td>@b.Updater</td>
+                                    <td>@b.ownerid</td>
+                                    <td>@b.Time</td>
+                                    <td>
+                                        <div class="btn-group" role="group" tag="@b.ApplyID">
+                                            <button type="button" class="btn btn-info tongguo">通过</button>
+                                            <button type="button" class="btn btn-danger Notextapplyid"data-toggle="modal" data-target=".bs-example-modal-sm">不通过</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <nav class="pull-right">
+                    <ul class="pagination">
+                        <li>
+                            <a href="#" aria-label="Previous" class="ListPrevious" id="paginpre7">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" aria-label="Next" class="ListNext">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!--网上__公共设施-->
+            <div class="tab-pane fade" id="peopleout">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="搜索..." />
+                    <span class="input-group-btn">
+                        <button type='submit' name='search' tag="2" typename="repair" typenumber="1" class="btn btn-flat search-btn"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+                <table class="table table-striped table-hover text-center" id="table1">
+                    <thead>
+                        <tr>
+                            <th style="width:25%">标题</th>
+                            <th style="width:20%">申请人</th>
+                            <th style="width:15%">所属业主</th>
+                            <th style="width:20%">申请时间</th>
+                            <th style="width:20%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.RepairList1 != null)
+                        {
+                            foreach (MinHangWisdomParkWeb.Controllers.ShenHe b in ViewBag.RepairList1 as List<MinHangWisdomParkWeb.Controllers.ShenHe>)
+                            {
+                                <tr>
+                                    <td><button type="button" class="btn btn-link repairtitle" data-toggle="modal" data-target="#ModelPeople" repairid="@b.Content">@b.Title</button></td>
+                                    <td>@b.Updater</td>
+                                    <td>@b.ownerid</td>
+                                    <td>@b.Time</td>
+                                    <td>
+                                        <div class="btn-group" role="group" tag="@b.ApplyID">
+                                            <button type="button" class="btn btn-info tongguo">通过</button>
+                                            <button type="button" class="btn btn-danger Notextapplyid"data-toggle="modal" data-target=".bs-example-modal-sm">不通过</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <nav class="pull-right">
+                    <ul class="pagination">
+                        <li>
+                            <a href="#" aria-label="Previous" class="ListPrevious" id="paginpre1">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" aria-label="Next" class="ListNext">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!--网上__物业-->
+            <div class="tab-pane fade" id="peoplein">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="搜索..." />
+                    <span class="input-group-btn">
+                        <button type='submit' name='search' tag="3" typename="repair" typenumber="2" class="btn btn-flat search-btn"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+                <table class="table table-striped table-hover text-center" id="table2">
+                    <thead>
+                        <tr>
+                            <th style="width:25%">标题</th>
+                            <th style="width:20%">申请人</th>
+                            <th style="width:15%">所属业主</th>
+                            <th style="width:20%">申请时间</th>
+                            <th style="width:20%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.RepairList2 != null)
+                        {
+                            foreach (MinHangWisdomParkWeb.Controllers.ShenHe b in ViewBag.RepairList2 as List<MinHangWisdomParkWeb.Controllers.ShenHe>)
+                            {
+                                <tr>
+                                    <td><button type="button" class="btn btn-link repairtitle" data-toggle="modal" data-target="#ModelPeople" repairid="@b.Content">@b.Title</button></td>
+                                    <td>@b.Updater</td>
+                                    <td>@b.ownerid</td>
+                                    <td>@b.Time</td>
+                                    <td>
+                                        <div class="btn-group" role="group" tag="@b.ApplyID">
+                                            <button type="button" class="btn btn-info tongguo">通过</button>
+                                            <button type="button" class="btn btn-danger Notextapplyid"data-toggle="modal" data-target=".bs-example-modal-sm">不通过</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <nav class="pull-right">
+                    <ul class="pagination">
+                        <li>
+                            <a href="#" aria-label="Previous" class="ListPrevious" id="paginpre2">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" aria-label="Next" class="ListNext">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<!--网上报修-->
+<div class="modal fade" id="ModelRepair" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--人员制卡-->
+<div class="modal fade" id="ModelBuniess4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--不通过-->
+<div class="modal fade bs-example-modal-sm"  tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title myModalLabel">填写不通过意见</h4>
+            </div>
+            <div class="modal-body" style="padding:0px;">
+                <textarea id="NoText" tag="" style="margin:0px;padding:0px;width:100%;height:100%;"></textarea>
+            </div>
+            <div class="modal-footer" style="text-align:center;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary butongguo">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" id="BuniessNumber4" value="@ViewBag.BuniessNumber[0]" />
+<input type="hidden" id="BuniessNumber5" value="@ViewBag.BuniessNumber[1]" />
+<input type="hidden" id="BuniessNumber6" value="@ViewBag.BuniessNumber[4]" />
+<input type="hidden" id="BuniessNumber7" value="@ViewBag.BuniessNumber[5]" />
+<input type="hidden" id="BuniessNumber1" value="@ViewBag.BuniessNumber[2]" />
+<input type="hidden" id="BuniessNumber2" value="@ViewBag.BuniessNumber[3]" />
+<script src="~/ViewScripts/AuthorizationAudit-index.js"></script>
+<script src="~/ViewScripts/fanye.js"></script>

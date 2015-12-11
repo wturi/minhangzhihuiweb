@@ -1,0 +1,53 @@
+﻿#main {
+    width: 1000px;
+    height: 1469px;
+    margin: 0px auto;
+    background-image: url('../../img/Main/backgroundimg.png');
+    background-size: 100%;
+    position: relative;
+}
+
+body {
+    background-color: #0062a8;
+}
+#ruzhu, #shigong, #linshi, #zhengshi {
+    width: 320px;
+    height: 160px;
+    position: absolute;
+    cursor:pointer;
+}
+#ruzhu {
+    right: 18px;
+    top:112px;
+}
+#shigong{
+    right:18px;
+    top:297px;
+}
+#zhengshi{
+    left:18px;
+    top:498px;
+}
+#linshi{
+    left:18px;
+    top:682px;
+}
+span{
+    color:#0062a8;
+    font-size:30px;
+    font-weight:900;
+    font-family:'Microsoft YaHei UI';
+    position:absolute;
+    top:61px;
+    left:70px;
+    
+}
+#houtai{
+    width:70px;
+    height:25px;
+    position:absolute;
+    right:20px;
+    top:43px;
+    cursor:pointer;
+}
+

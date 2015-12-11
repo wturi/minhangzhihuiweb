@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .row, textarea {
+        margin-top: 1em;
+    }
+</style>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">
+                <textarea class="form-control" id="PublishContent" rows="6" placeholder="请输入挂失原因"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 text-center">
+        <button type="button" id="btnzong" class="btn btn-info">确认提交</button>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<script src="~/Scripts/All.js"></script>
+<script type="text/javascript">
+    $("#btnzong").click(function () {
+        var content = $("#PublishContent").val();
+
+        if (window.localStorage["ClientIp"] == null || window.localStorage["ClientIp"] == "") {
+            GetClientIp();
+        }
+
+        $.post("guashiajax", { content: content, clientip: window.localStorage["ClientIp"] }, function (data, status) {
+            if (data.msg == "OK") {
+                alert("提交成功！");
+                $("#PublishContent").val('');
+            } else {
+                alert("提交失败！");
+            }
+
+        })
+    })
+
+
+
+</script>

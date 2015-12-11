@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .row {
+        margin-bottom: 0.5em;
+    }
+</style>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <input type="text" class="form-control" id="PeblishType" placeholder="发布类型" value="@ViewBag.Type" readonly="readonly">
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <input type="text" class="form-control" id="PeblishTitle" placeholder="发布标题">
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <textarea class="form-control" id="PublishContent" rows="6" placeholder="发布内容"></textarea>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 text-center">
+        <button type="button" id="btnzong" class="btn btn-info">确认提交</button>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+
+<script type="text/javascript">
+    $("#btnzong").click(function () {
+        var PeblishType = $("#PeblishType").val();
+        var PeblishTitle = $("#PeblishTitle").val();
+        var PublishContent = $("#PublishContent").val();
+        var PublishImg = [];
+        $("#imgzhanshi").children().each(function () {
+            var id = $(this).attr("imgid");
+            PublishImg.push(id);
+        })
+
+        if (PeblishType == "" || PeblishTitle == "" || PublishContent == "") {
+            alert("标题 内容必须填写！");
+            return false;
+        }
+
+        $.post("", {}, function () {
+
+        })
+    })
+
+
+</script>

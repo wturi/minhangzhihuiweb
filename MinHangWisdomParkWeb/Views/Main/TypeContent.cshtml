@@ -1,0 +1,260 @@
+﻿@{
+    Layout = "~/Views/Shared/_ch.cshtml";
+}
+<link href="~/Styles/gundong.css" rel="stylesheet" />
+<link href="~/Styles/MainCss.css" rel="stylesheet" />
+<style type="text/css">
+    .jumbotron {
+        padding-top: 0;
+        padding-bottom: 0;
+        background-color: none;
+    }
+
+    #rightlist img {
+        width: 40%;
+        margin: 5%;
+    }
+</style>
+<div class="bodymain">
+    <div class="bodytitle">
+        <a href="#" class="pull-left"><img src="@Url.Content(MinHangWisdomParkWeb.GlobalParameter.LogoUrl)" /></a>
+        <div class="bodytitletab pull-left">
+            <a href="Main">首页</a>
+            <a href="TypeContent?TypeName=新闻">新闻</a>
+            <a href="TypeContent?TypeName=公告">公告</a>
+            <a href="TypeContent?TypeName=政策">政策</a>
+            <a href="TypeContent?TypeName=企业">企业</a>
+            <a href="http://139.196.36.201:8001/">网络社区</a>
+        </div>
+    </div>
+    <div class="bodycontent">
+        <div class="row">
+            <div class="col-lg-12">
+                <ol class="breadcrumb">
+                    <li><a href="Main">首页</a></li>
+                    <li class="active">@ViewBag.Title</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                @*左边内容*@
+                <input type="hidden" value="@ViewBag.Title" id="TypeName" />
+                <input type="hidden" value="@ViewBag.Count" id="count" />
+                <div class="list-group" id="content">
+
+                </div>
+                <nav class="text-center">
+                    @*分页*@
+                    <ul class="pagination">
+                        <li>
+                            <a href="#" aria-label="Previous" class="listshang">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" aria-label="Next" class="listxia">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-4" id="rightlist">
+                @*右边列表*@
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var number = 10;
+    var count = Math.ceil($('#count').val() / 10);
+    //var count = 12;
+    $(function () {
+        var typename = $('#TypeName').val();
+        contentlist(typename, 1);
+        counts();
+        AllPeblish(typename);
+    })
+
+    function counts() {
+        var str = '';
+        if (count > 1) {
+            for (var i = 1; i <= 5; i++) {
+                if (i == 1) {
+                    str += '<li class="active num"><a href="#">' + i + '</a></li>';
+                } else if (i <= count) {
+                    str += '<li class="num"><a href="#">' + i + '</a></li>';
+                }
+            }
+            $('.listshang').parent().after(str);
+        } else {
+            $('.text-center').empty();
+        }
+    }
+
+
+
+    $(".listshang").click(function () {
+        var num = $(".pagination").find(".active");
+        var typename = $('#TypeName').val();
+        if (num.text() != '1') {
+            if (num.prev().find("span").text() != "«") {
+                num.removeClass("active");
+                num.prev().addClass("active");
+                contentlist(typename, num.prev().text());
+            } else if (num.prev().find("span").text() == "«") {
+                num.parent().find('.num').remove();
+                var i = 5;
+                var str = '';
+                for (var i; i >= 1; i--) {
+                    if (i == 1) {
+                        str += '<li class="active num"><a href="#">' + (Number(num.text()) - i) + '</a></li>';
+                        contentlist(typename, (Number(num) - i));
+                    } else {
+                        str += '<li class="num"><a href="#">' + (Number(num.text()) - i) + '</a></li>'
+                    }
+                }
+                $('.listshang').parent().after(str);
+            }
+        }
+    })
+
+    $(".listxia").click(function () {
+        var num = $(".pagination").find(".active");
+        if (num.text() != count) {
+            if (num.next().find("span").text() != "»") {
+                num.removeClass("active");
+                num.next().addClass("active");
+                var typename = $('#TypeName').val();
+                contentlist(typename, num.next().text());
+            } else if (num.next().find('span').text() == "»") {
+                num.parent().find('.num').remove();
+                var i = 1;
+                var str = '';
+                for (var i; i <= 5; i++) {
+                    if (i == 1) {
+                        str += '<li class="active num"><a href="#">' + (Number(num.text()) + i) + '</a></li>';
+                        contentlist(typename, (Number(num) + i));
+                    } else if ((Number(num.text()) + i) <= count) {
+                        str += '<li class="num"><a href="#">' + (Number(num.text()) + i) + '</a></li>'
+                    }
+                }
+                $('.listshang').parent().after(str);
+            }
+        }
+    })
+
+
+
+    $(document).on('click', '.num', function () {
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+        var typename = $('#TypeName').val();
+        contentlist(typename, $(this).text());
+    })
+
+    function contentlist(typename, pageindex) {
+        $("#content").empty();
+        $.post("TypeLie", { typename: typename, pageindex: pageindex }, function (data, status) {
+            if (status == "success") {
+                var str = "";
+                $.each(data, function (i, item) {
+                    var peblishcontent = item.PeblishContent.replace(/<\/?[^>]*>/g, '');
+                    peblishcontent = peblishcontent.replace(/[ | ]*\n/g, '\n');
+                    peblishcontent = peblishcontent.replace(/\n[\s| | ]*\r/g, '\n');
+                    peblishcontent = peblishcontent.replace(/&nbsp;/ig, '');
+                    if (item != null && peblishcontent.length > 30) {
+                        peblishcontent = peblishcontent.substring(0, 30) + '...';
+                    } else {
+                        peblishcontent = peblishcontent;
+                    }
+                    var time = item.CreateTime != null ? (timeStamp2String(item.CreateTime)) : ("");
+                    str += ' <a href="TextContent?TypeName=' + typename + '&PeblishID=' + item.PeblishID + '" class="list-group-item "><span class="badge">' + time + '</span>'
+                    + '<h3 class="list-group-item-heading"><b>' + item.PeblishTitle + '</b></h3>'
+                    + '<p class="list-group-item-text">' + peblishcontent + '</p></a>';
+                })
+                $("#content").append(str);
+            }
+        })
+    }
+
+
+
+
+    //右边列表
+    function AllPeblish(typename) {
+        $.post("AllPeblish", function (data, status) {
+            if (status == "success") {
+                var str = '';
+                if (typename != "新闻") {
+                    str += '<div class="panel panel-default">' +
+                    '<div class="panel-heading">新闻</div>' +
+                    '<ul class="list-group">';
+                    $.each(data.News, function (i, item) {
+                        str += '<li class="list-group-item"><a href="TextContent?TypeName=新闻&PeblishID=' + item.PeblishID + '">' + item.PeblishTitle + '</a></li>'
+                    })
+                    str += '</ul></div>';
+                }
+                if (typename != "公告") {
+                    str += '<div class="panel panel-default">' +
+                    '<div class="panel-heading">公告</div>' +
+                    '<ul class="list-group">';
+                    $.each(data.Notice, function (i, item) {
+                        str += '<li class="list-group-item"><a href="TextContent?TypeName=公公啊&PeblishID=' + item.PeblishID + '">' + item.PeblishTitle + '</a></li>'
+                    })
+                    str += '</ul></div>';
+                }
+                if (typename != "政策") {
+                    str += '<div class="panel panel-default">' +
+                    '<div class="panel-heading">政策</div>' +
+                    '<ul class="list-group">';
+                    $.each(data.Policy, function (i, item) {
+                        str += '<li class="list-group-item"><a href="TextContent?TypeName=政策&PeblishID=' + item.PeblishID + '">' + item.PeblishTitle + '</a></li>'
+                    })
+                    str += '</ul></div>';
+                }
+                if (typename != "企业") {
+                    str += '<div class="panel panel-default">' +
+                    '<div class="panel-heading">企业</div>' +
+                    '<ul class="list-group">';
+                    $.each(data.Enterprises, function (i, item) {
+                        str += '<li class="list-group-item"><a href="TextContent?TypeName=企业&PeblishID=' + item.PeblishID + '">' + item.PeblishTitle + '</a></li>'
+                    })
+                    str += '</ul></div>';
+                }
+                if (typename != "广告") {
+                    str += '<div class="panel panel-default">' +
+                   '<div class="panel-heading">广告</div>';
+                    $.each(data.Advert, function (i, item) {
+                        str += '<a  href="' + item.httpurl + '"><img src="../' + item.imgurl + '" alt="..." class="img-thumbnail"></a>';
+                    })
+                    str += '</div>';
+                }
+                $('#rightlist').append(str);
+            }
+        })
+    }
+
+
+
+    //时间转换格式
+    function timeStamp2String(time) {
+        var time = eval(time.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"));
+        var datetime = new Date();
+        datetime.setTime(time);
+        var year = datetime.getFullYear();
+        var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+        var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+        var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
+        var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+        var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+        return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
+    }
+
+
+
+</script>

@@ -1,0 +1,2036 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ajIIPdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="Functions">
+          <Key>
+            <PropertyRef Name="FunctionID" />
+          </Key>
+          <Property Name="FunctionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FunctionName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Superior" Type="int" Nullable="false" />
+          <Property Name="MasterMenu" Type="bit" Nullable="false" />
+          <Property Name="Type" Type="nvarchar(max)" />
+          <Property Name="IsDel" Type="bit" />
+          <Property Name="IsPhone" Type="bit" />
+        </EntityType>
+        <EntityType Name="mtActor">
+          <Key>
+            <PropertyRef Name="ActorID" />
+          </Key>
+          <Property Name="ActorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="ActorType" Type="int" />
+        </EntityType>
+        <EntityType Name="mtCamera">
+          <Key>
+            <PropertyRef Name="CameraID" />
+          </Key>
+          <Property Name="CameraID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="CameraName" Type="nvarchar" MaxLength="255" />
+          <Property Name="CameraURL" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CameraMemo" Type="nvarchar" MaxLength="1000" />
+          <Property Name="IsDel" Type="bit" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="mtConfirmAuto">
+          <Key>
+            <PropertyRef Name="ConfirmAutoID" />
+          </Key>
+          <Property Name="ConfirmAutoID" Type="int" Nullable="false" />
+          <Property Name="ConfirmFlowName" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="mtConfirmFlow">
+          <Key>
+            <PropertyRef Name="ConfirmerAutoID" />
+            <PropertyRef Name="ConfirmerLevelID" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ConfirmerAutoID" Type="int" Nullable="false" />
+          <Property Name="ConfirmerLevelID" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="12" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mtConfirmLevel">
+          <Key>
+            <PropertyRef Name="ConfirmLevelID" />
+          </Key>
+          <Property Name="ConfirmLevelID" Type="int" Nullable="false" />
+          <Property Name="ConfirmLevelName" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ajIIPdb.dbo.mtDevices”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="mtDevices">
+          <Key>
+            <PropertyRef Name="DevicesID" />
+          </Key>
+          <Property Name="DevicesID" Type="int" Nullable="false" />
+          <Property Name="DevicesName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DevicesType" Type="int" />
+          <Property Name="DevicesMemo" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="mtFunction">
+          <Key>
+            <PropertyRef Name="FuncNo" />
+          </Key>
+          <Property Name="FuncNo" Type="int" Nullable="false" />
+          <Property Name="FuncName" Type="nvarchar" MaxLength="100" />
+          <Property Name="FuncPage" Type="nvarchar" MaxLength="100" />
+          <Property Name="FuncParentNo" Type="int" />
+          <Property Name="IsEndNode" Type="bit" />
+        </EntityType>
+        <EntityType Name="mtOwner">
+          <Key>
+            <PropertyRef Name="OwnerId" />
+          </Key>
+          <Property Name="OwnerId" Type="int" Nullable="false" />
+          <Property Name="OwnerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="OwnerPlanSpace" Type="nvarchar" MaxLength="255" />
+          <Property Name="ExpDate" Type="datetime" />
+          <Property Name="OwnerParentId" Type="int" />
+          <Property Name="IsDel" Type="bit" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="mtPower">
+          <Key>
+            <PropertyRef Name="PowerId" />
+          </Key>
+          <Property Name="PowerId" Type="int" Nullable="false" />
+          <Property Name="PowerName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="mtRegistrant">
+          <Key>
+            <PropertyRef Name="AutoID" />
+          </Key>
+          <Property Name="AutoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegistrantType" Type="nvarchar" MaxLength="50" />
+          <Property Name="RegistrantMaxID" Type="int" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="mtRfidCode">
+          <Key>
+            <PropertyRef Name="AutoId" />
+          </Key>
+          <Property Name="AutoId" Type="int" Nullable="false" />
+          <Property Name="RfidCode" Type="nvarchar" MaxLength="25" />
+          <Property Name="TID" Type="nvarchar" MaxLength="10" />
+          <Property Name="UID" Type="nvarchar" MaxLength="10" />
+          <Property Name="IsDel" Type="bit" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="mtUniversalCode">
+          <Key>
+            <PropertyRef Name="UniversalType" />
+            <PropertyRef Name="CodeID" />
+          </Key>
+          <Property Name="UniversalType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CodeID" Type="int" Nullable="false" />
+          <Property Name="CodeName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CodeEn" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="mtUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserPWD" Type="nvarchar" MaxLength="255" />
+          <Property Name="UserParentId" Type="nvarchar" MaxLength="12" />
+          <Property Name="IsDel" Type="bit" />
+          <Property Name="OwnerId" Type="int" />
+          <Property Name="ActorId" Type="int" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="mtUserActor">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ActorId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="ActorId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tbActorPower">
+          <Key>
+            <PropertyRef Name="ActorId" />
+            <PropertyRef Name="FuncNo" />
+            <PropertyRef Name="PowerId" />
+            <PropertyRef Name="FuncType" />
+          </Key>
+          <Property Name="ActorId" Type="int" Nullable="false" />
+          <Property Name="FuncNo" Type="int" Nullable="false" />
+          <Property Name="PowerId" Type="int" Nullable="false" />
+          <Property Name="FuncType" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbApplyBill">
+          <Key>
+            <PropertyRef Name="ApplyID" />
+          </Key>
+          <Property Name="ApplyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplyType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ObjectID" Type="nvarchar" MaxLength="20" />
+          <Property Name="ApplyDate" Type="datetime" />
+          <Property Name="Updater" Type="nvarchar" MaxLength="12" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="StateType" Type="int" />
+        </EntityType>
+        <EntityType Name="tbBuniess">
+          <Key>
+            <PropertyRef Name="BuniessID" />
+          </Key>
+          <Property Name="BuniessID" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="BuniessType" Type="nvarchar" MaxLength="20" />
+          <Property Name="BuniessContent" Type="nvarchar(max)" />
+          <Property Name="IsCompleted" Type="int" />
+          <Property Name="Updater" Type="nvarchar" MaxLength="20" />
+          <Property Name="ClientIP" Type="nvarchar" MaxLength="20" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbCar">
+          <Key>
+            <PropertyRef Name="CarID" />
+            <PropertyRef Name="Version" />
+          </Key>
+          <Property Name="CarID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Version" Type="int" Nullable="false" />
+          <Property Name="CarLicence" Type="nvarchar" MaxLength="50" />
+          <Property Name="CarType" Type="nvarchar" MaxLength="50" />
+          <Property Name="CarVehicleNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaxWeight" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="MinWeight" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ExpDate" Type="datetime" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="StateCode" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ResFiles" Type="nvarchar" MaxLength="255" />
+          <Property Name="Drivers" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CurrProject" Type="nvarchar" MaxLength="255" />
+          <Property Name="ParkSpace" Type="nvarchar" MaxLength="255" />
+          <Property Name="JobPartTime" Type="nvarchar" MaxLength="255" />
+          <Property Name="SkillItem" Type="nvarchar" MaxLength="255" />
+          <Property Name="CarPic" Type="int" />
+        </EntityType>
+        <EntityType Name="tbCheckInOut">
+          <Key>
+            <PropertyRef Name="CheckID" />
+            <PropertyRef Name="Version" />
+          </Key>
+          <Property Name="CheckID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Version" Type="int" Nullable="false" />
+          <Property Name="InOutFlag" Type="int" />
+          <Property Name="InOutType" Type="nvarchar" MaxLength="50" />
+          <Property Name="CheckTitle" Type="nvarchar" MaxLength="255" />
+          <Property Name="CheckContent" Type="nvarchar" MaxLength="1000" />
+          <Property Name="StateCode" Type="int" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbCheckInOuts">
+          <Key>
+            <PropertyRef Name="CheckID" />
+            <PropertyRef Name="Version" />
+            <PropertyRef Name="SortNo" />
+          </Key>
+          <Property Name="CheckID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Version" Type="int" Nullable="false" />
+          <Property Name="SortNo" Type="int" Nullable="false" />
+          <Property Name="UseType" Type="nvarchar" MaxLength="20" />
+          <Property Name="ObjectId" Type="nvarchar" MaxLength="12" />
+          <Property Name="ObjectVersion" Type="int" />
+          <Property Name="Memo" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbConfirmState">
+          <Key>
+            <PropertyRef Name="ApplyID" />
+          </Key>
+          <Property Name="ApplyID" Type="int" Nullable="false" />
+          <Property Name="CurrConfirmLevel" Type="int" />
+          <Property Name="NeedConfirmLevel" Type="int" />
+          <Property Name="ConfirmerID" Type="nvarchar" MaxLength="20" />
+          <Property Name="ConfirmerDate" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="ConfirmeMemo" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ConfirmerAutoID" Type="int" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbFiles">
+          <Key>
+            <PropertyRef Name="FileID" />
+          </Key>
+          <Property Name="FileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileType" Type="nvarchar" MaxLength="50" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="255" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbIORecord">
+          <Key>
+            <PropertyRef Name="AutoID" />
+          </Key>
+          <Property Name="AutoID" Type="int" Nullable="false" />
+          <Property Name="RfidAutoId" Type="int" />
+          <Property Name="WatchHouse" Type="int" />
+          <Property Name="IOFlag" Type="bit" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="DevicesID" Type="int" />
+        </EntityType>
+        <EntityType Name="tbOwnerCamera">
+          <Key>
+            <PropertyRef Name="OwnerId" />
+            <PropertyRef Name="CameraID" />
+          </Key>
+          <Property Name="OwnerId" Type="int" Nullable="false" />
+          <Property Name="CameraID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ajIIPdb.dbo.tbOwnerRfid”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="tbOwnerRfid">
+          <Key>
+            <PropertyRef Name="RfidAutoId" />
+            <PropertyRef Name="UseType" />
+          </Key>
+          <Property Name="RfidAutoId" Type="int" Nullable="false" />
+          <Property Name="UseType" Type="int" Nullable="false" />
+          <Property Name="OwnerId" Type="int" />
+          <Property Name="ObjectID" Type="nvarchar" MaxLength="20" />
+          <Property Name="ListType" Type="int" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbPeblish">
+          <Key>
+            <PropertyRef Name="PeblishID" />
+          </Key>
+          <Property Name="PeblishID" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="PeblishType" Type="nvarchar" MaxLength="20" />
+          <Property Name="PeblishTitle" Type="nvarchar" MaxLength="255" />
+          <Property Name="PeblishContent" Type="nvarchar(max)" />
+          <Property Name="FileIDs" Type="nvarchar" MaxLength="255" />
+          <Property Name="Updater" Type="nvarchar" MaxLength="20" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbPeople">
+          <Key>
+            <PropertyRef Name="PeopleID" />
+            <PropertyRef Name="Version" />
+          </Key>
+          <Property Name="PeopleID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Version" Type="int" Nullable="false" />
+          <Property Name="PeopleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sexy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Position" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdentityCardID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExpDate" Type="datetime" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="UpdateTime" Type="datetime" />
+          <Property Name="StateCode" Type="int" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Native" Type="nvarchar" MaxLength="50" />
+          <Property Name="CurrProject" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Birthday" Type="datetime" />
+          <Property Name="JobPartTime" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="QQ" Type="nvarchar" MaxLength="50" />
+          <Property Name="WeiXin" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="HeadPhotoPic" Type="int" />
+          <Property Name="FingerprintLeftPic" Type="int" />
+          <Property Name="FingerprintRightPic" Type="int" />
+          <Property Name="SkillItem" Type="varchar" MaxLength="200" />
+          <Property Name="PicFileId" Type="int" />
+        </EntityType>
+        <EntityType Name="tbProduct">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="Version" />
+          </Key>
+          <Property Name="ProductID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Version" Type="int" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductSpec" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductQuantity" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ProductUnit" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="StateCode" Type="int" />
+          <Property Name="ResFiles" Type="nvarchar" MaxLength="255" />
+          <Property Name="CurrProject" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Space" Type="nvarchar" MaxLength="255" />
+          <Property Name="JobPartTime" Type="nvarchar" MaxLength="1000" />
+          <Property Name="SkillItem" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ProductPic" Type="int" />
+        </EntityType>
+        <EntityType Name="tbReceive">
+          <Key>
+            <PropertyRef Name="AutoID" />
+          </Key>
+          <Property Name="AutoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TurnoverType" Type="nvarchar" MaxLength="20" />
+          <Property Name="TurnoverContent" Type="nvarchar" MaxLength="1000" />
+          <Property Name="TurnoverDate" Type="datetime" />
+          <Property Name="TurnoverMoney" Type="decimal" Precision="21" Scale="4" />
+          <Property Name="Updater" Type="nvarchar" MaxLength="20" />
+          <Property Name="OwnerID" Type="int" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbRepair">
+          <Key>
+            <PropertyRef Name="RepairID" />
+          </Key>
+          <Property Name="RepairID" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="RepairType" Type="int" />
+          <Property Name="RepairTitle" Type="nvarchar" MaxLength="255" />
+          <Property Name="RepairContent" Type="nvarchar" MaxLength="1000" />
+          <Property Name="StateCode" Type="int" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbResourceFiles">
+          <Key>
+            <PropertyRef Name="ResFileID" />
+          </Key>
+          <Property Name="ResFileID" Type="int" Nullable="false" />
+          <Property Name="ResFileType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ResFileName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ResFilePath" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbTemp">
+          <Key>
+            <PropertyRef Name="TempID" />
+            <PropertyRef Name="Version" />
+          </Key>
+          <Property Name="TempID" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="Version" Type="int" Nullable="false" />
+          <Property Name="UseType" Type="nvarchar" MaxLength="20" />
+          <Property Name="TempName" Type="nvarchar" MaxLength="50" />
+          <Property Name="TempDesc" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="StateCode" Type="int" />
+        </EntityType>
+        <EntityType Name="tbWeight">
+          <Key>
+            <PropertyRef Name="AutoID" />
+          </Key>
+          <Property Name="AutoID" Type="int" Nullable="false" />
+          <Property Name="WeightDate" Type="datetime" />
+          <Property Name="WeightValue" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="WeightUnit" Type="nvarchar" MaxLength="10" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="WatchHouse" Type="nvarchar" MaxLength="50" />
+          <Property Name="DevicesID" Type="int" />
+          <Property Name="UpdateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ajIIPdb.dbo.mdlPeblish”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="mdlPeblish">
+          <Key>
+            <PropertyRef Name="PeblishID" />
+          </Key>
+          <Property Name="PeblishID" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="PeblishType" Type="nvarchar" MaxLength="20" />
+          <Property Name="PeblishTitle" Type="nvarchar" MaxLength="255" />
+          <Property Name="PeblishContent" Type="nvarchar(max)" />
+          <Property Name="FileIDs" Type="nvarchar" MaxLength="255" />
+          <Property Name="Updater" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ajIIPdb.dbo.twCarLastVersion”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="twCarLastVersion">
+          <Key>
+            <PropertyRef Name="CarID" />
+          </Key>
+          <Property Name="CarID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Version" Type="int" />
+          <Property Name="PicFileID" Type="int" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ajIIPdb.dbo.twIORecord”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="twIORecord">
+          <Key>
+            <PropertyRef Name="AutoID" />
+            <PropertyRef Name="IOFlagInfo" />
+          </Key>
+          <Property Name="AutoID" Type="int" Nullable="false" />
+          <Property Name="UseType" Type="int" />
+          <Property Name="ObjectID" Type="nvarchar" MaxLength="20" />
+          <Property Name="OwnerId" Type="int" />
+          <Property Name="WatchHouseName" Type="nvarchar" MaxLength="100" />
+          <Property Name="IOFlagInfo" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ajIIPdb.dbo.twOwnerRfidStatus”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="twOwnerRfidStatus">
+          <Key>
+            <PropertyRef Name="RfidAutoId" />
+            <PropertyRef Name="UseType" />
+            <PropertyRef Name="ResFileId" />
+          </Key>
+          <Property Name="RfidAutoId" Type="int" Nullable="false" />
+          <Property Name="OwnerId" Type="int" />
+          <Property Name="UseType" Type="int" Nullable="false" />
+          <Property Name="ObjectID" Type="nvarchar" MaxLength="20" />
+          <Property Name="ResFileId" Type="int" Nullable="false" />
+          <Property Name="ListType" Type="int" />
+          <Property Name="IsDel" Type="bit" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ajIIPdb.dbo.twPeopleLastVersion”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="twPeopleLastVersion">
+          <Key>
+            <PropertyRef Name="PeopleID" />
+          </Key>
+          <Property Name="PeopleID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Version" Type="int" />
+          <Property Name="PicFileID" Type="int" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ajIIPdb.dbo.twProductLastVersion”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="twProductLastVersion">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Version" Type="int" />
+          <Property Name="PicFileID" Type="int" />
+        </EntityType>
+        <Association Name="FK_mtUser_mtOwner">
+          <End Role="mtOwner" Type="Self.mtOwner" Multiplicity="0..1" />
+          <End Role="mtUser" Type="Self.mtUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mtOwner">
+              <PropertyRef Name="OwnerId" />
+            </Principal>
+            <Dependent Role="mtUser">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbConfirmState_tbApplyBill">
+          <End Role="tbApplyBill" Type="Self.tbApplyBill" Multiplicity="1" />
+          <End Role="tbConfirmState" Type="Self.tbConfirmState" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbApplyBill">
+              <PropertyRef Name="ApplyID" />
+            </Principal>
+            <Dependent Role="tbConfirmState">
+              <PropertyRef Name="ApplyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbIORecord_mtRfidCode">
+          <End Role="mtRfidCode" Type="Self.mtRfidCode" Multiplicity="0..1" />
+          <End Role="tbIORecord" Type="Self.tbIORecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mtRfidCode">
+              <PropertyRef Name="AutoId" />
+            </Principal>
+            <Dependent Role="tbIORecord">
+              <PropertyRef Name="RfidAutoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbOwnerRfid_mtOwner">
+          <End Role="mtOwner" Type="Self.mtOwner" Multiplicity="0..1" />
+          <End Role="tbOwnerRfid" Type="Self.tbOwnerRfid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mtOwner">
+              <PropertyRef Name="OwnerId" />
+            </Principal>
+            <Dependent Role="tbOwnerRfid">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbOwnerRfid_mtRfidCode">
+          <End Role="mtRfidCode" Type="Self.mtRfidCode" Multiplicity="1" />
+          <End Role="tbOwnerRfid" Type="Self.tbOwnerRfid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mtRfidCode">
+              <PropertyRef Name="AutoId" />
+            </Principal>
+            <Dependent Role="tbOwnerRfid">
+              <PropertyRef Name="RfidAutoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="fxZero" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
+          <Parameter Name="bitN" Type="int" Mode="In" />
+          <Parameter Name="iNum" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Proc_RegistrantID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RegistrantType" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="ajIIPdbModelStoreContainer">
+          <EntitySet Name="Functions" EntityType="Self.Functions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mtActor" EntityType="Self.mtActor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mtCamera" EntityType="Self.mtCamera" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mtConfirmAuto" EntityType="Self.mtConfirmAuto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mtConfirmFlow" EntityType="Self.mtConfirmFlow" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mtConfirmLevel" EntityType="Self.mtConfirmLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mtFunction" EntityType="Self.mtFunction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mtOwner" EntityType="Self.mtOwner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mtPower" EntityType="Self.mtPower" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mtRegistrant" EntityType="Self.mtRegistrant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mtRfidCode" EntityType="Self.mtRfidCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mtUniversalCode" EntityType="Self.mtUniversalCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mtUser" EntityType="Self.mtUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mtUserActor" EntityType="Self.mtUserActor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbActorPower" EntityType="Self.tbActorPower" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbApplyBill" EntityType="Self.tbApplyBill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbBuniess" EntityType="Self.tbBuniess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbCar" EntityType="Self.tbCar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbCheckInOut" EntityType="Self.tbCheckInOut" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbCheckInOuts" EntityType="Self.tbCheckInOuts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbConfirmState" EntityType="Self.tbConfirmState" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbFiles" EntityType="Self.tbFiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbIORecord" EntityType="Self.tbIORecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbOwnerCamera" EntityType="Self.tbOwnerCamera" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbPeblish" EntityType="Self.tbPeblish" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbPeople" EntityType="Self.tbPeople" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbProduct" EntityType="Self.tbProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbReceive" EntityType="Self.tbReceive" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbRepair" EntityType="Self.tbRepair" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbResourceFiles" EntityType="Self.tbResourceFiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbTemp" EntityType="Self.tbTemp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbWeight" EntityType="Self.tbWeight" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mtDevices" EntityType="Self.mtDevices" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[mtDevices].[DevicesID] AS [DevicesID], 
+[mtDevices].[DevicesName] AS [DevicesName], 
+[mtDevices].[DevicesType] AS [DevicesType], 
+[mtDevices].[DevicesMemo] AS [DevicesMemo], 
+[mtDevices].[CreateTime] AS [CreateTime], 
+[mtDevices].[UpdateTime] AS [UpdateTime]
+FROM [dbo].[mtDevices] AS [mtDevices]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tbOwnerRfid" EntityType="Self.tbOwnerRfid" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[tbOwnerRfid].[RfidAutoId] AS [RfidAutoId], 
+[tbOwnerRfid].[UseType] AS [UseType], 
+[tbOwnerRfid].[OwnerId] AS [OwnerId], 
+[tbOwnerRfid].[ObjectID] AS [ObjectID], 
+[tbOwnerRfid].[ListType] AS [ListType], 
+[tbOwnerRfid].[CreateTime] AS [CreateTime], 
+[tbOwnerRfid].[UpdateTime] AS [UpdateTime]
+FROM [dbo].[tbOwnerRfid] AS [tbOwnerRfid]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="mdlPeblish" EntityType="Self.mdlPeblish" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[mdlPeblish].[PeblishID] AS [PeblishID], 
+[mdlPeblish].[PeblishType] AS [PeblishType], 
+[mdlPeblish].[PeblishTitle] AS [PeblishTitle], 
+[mdlPeblish].[PeblishContent] AS [PeblishContent], 
+[mdlPeblish].[FileIDs] AS [FileIDs], 
+[mdlPeblish].[Updater] AS [Updater]
+FROM [dbo].[mdlPeblish] AS [mdlPeblish]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="twCarLastVersion" EntityType="Self.twCarLastVersion" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[twCarLastVersion].[CarID] AS [CarID], 
+[twCarLastVersion].[Version] AS [Version], 
+[twCarLastVersion].[PicFileID] AS [PicFileID]
+FROM [dbo].[twCarLastVersion] AS [twCarLastVersion]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="twIORecord" EntityType="Self.twIORecord" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[twIORecord].[AutoID] AS [AutoID], 
+[twIORecord].[UseType] AS [UseType], 
+[twIORecord].[ObjectID] AS [ObjectID], 
+[twIORecord].[OwnerId] AS [OwnerId], 
+[twIORecord].[WatchHouseName] AS [WatchHouseName], 
+[twIORecord].[IOFlagInfo] AS [IOFlagInfo], 
+[twIORecord].[CreateTime] AS [CreateTime]
+FROM [dbo].[twIORecord] AS [twIORecord]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="twOwnerRfidStatus" EntityType="Self.twOwnerRfidStatus" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[twOwnerRfidStatus].[RfidAutoId] AS [RfidAutoId], 
+[twOwnerRfidStatus].[OwnerId] AS [OwnerId], 
+[twOwnerRfidStatus].[UseType] AS [UseType], 
+[twOwnerRfidStatus].[ObjectID] AS [ObjectID], 
+[twOwnerRfidStatus].[ResFileId] AS [ResFileId], 
+[twOwnerRfidStatus].[ListType] AS [ListType], 
+[twOwnerRfidStatus].[IsDel] AS [IsDel]
+FROM [dbo].[twOwnerRfidStatus] AS [twOwnerRfidStatus]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="twPeopleLastVersion" EntityType="Self.twPeopleLastVersion" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[twPeopleLastVersion].[PeopleID] AS [PeopleID], 
+[twPeopleLastVersion].[Version] AS [Version], 
+[twPeopleLastVersion].[PicFileID] AS [PicFileID]
+FROM [dbo].[twPeopleLastVersion] AS [twPeopleLastVersion]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="twProductLastVersion" EntityType="Self.twProductLastVersion" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[twProductLastVersion].[ProductID] AS [ProductID], 
+[twProductLastVersion].[Version] AS [Version], 
+[twProductLastVersion].[PicFileID] AS [PicFileID]
+FROM [dbo].[twProductLastVersion] AS [twProductLastVersion]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_mtUser_mtOwner" Association="Self.FK_mtUser_mtOwner">
+            <End Role="mtOwner" EntitySet="mtOwner" />
+            <End Role="mtUser" EntitySet="mtUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbConfirmState_tbApplyBill" Association="Self.FK_tbConfirmState_tbApplyBill">
+            <End Role="tbApplyBill" EntitySet="tbApplyBill" />
+            <End Role="tbConfirmState" EntitySet="tbConfirmState" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbIORecord_mtRfidCode" Association="Self.FK_tbIORecord_mtRfidCode">
+            <End Role="mtRfidCode" EntitySet="mtRfidCode" />
+            <End Role="tbIORecord" EntitySet="tbIORecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbOwnerRfid_mtOwner" Association="Self.FK_tbOwnerRfid_mtOwner">
+            <End Role="mtOwner" EntitySet="mtOwner" />
+            <End Role="tbOwnerRfid" EntitySet="tbOwnerRfid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbOwnerRfid_mtRfidCode" Association="Self.FK_tbOwnerRfid_mtRfidCode">
+            <End Role="mtRfidCode" EntitySet="mtRfidCode" />
+            <End Role="tbOwnerRfid" EntitySet="tbOwnerRfid" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ajIIPdbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="Functions">
+          <Key>
+            <PropertyRef Name="FunctionID" />
+          </Key>
+          <Property Name="FunctionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FunctionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Superior" Type="Int32" Nullable="false" />
+          <Property Name="MasterMenu" Type="Boolean" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDel" Type="Boolean" />
+          <Property Name="IsPhone" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="mtActor">
+          <Key>
+            <PropertyRef Name="ActorID" />
+          </Key>
+          <Property Name="ActorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="ActorType" Type="Int32" />
+        </EntityType>
+        <EntityType Name="mtCamera">
+          <Key>
+            <PropertyRef Name="CameraID" />
+          </Key>
+          <Property Name="CameraID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CameraName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CameraURL" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CameraMemo" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="IsDel" Type="Boolean" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="mtConfirmAuto">
+          <Key>
+            <PropertyRef Name="ConfirmAutoID" />
+          </Key>
+          <Property Name="ConfirmAutoID" Type="Int32" Nullable="false" />
+          <Property Name="ConfirmFlowName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="mtConfirmFlow">
+          <Key>
+            <PropertyRef Name="ConfirmerAutoID" />
+            <PropertyRef Name="ConfirmerLevelID" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ConfirmerAutoID" Type="Int32" Nullable="false" />
+          <Property Name="ConfirmerLevelID" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mtConfirmLevel">
+          <Key>
+            <PropertyRef Name="ConfirmLevelID" />
+          </Key>
+          <Property Name="ConfirmLevelID" Type="Int32" Nullable="false" />
+          <Property Name="ConfirmLevelName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="mtFunction">
+          <Key>
+            <PropertyRef Name="FuncNo" />
+          </Key>
+          <Property Name="FuncNo" Type="Int32" Nullable="false" />
+          <Property Name="FuncName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FuncPage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FuncParentNo" Type="Int32" />
+          <Property Name="IsEndNode" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="mtOwner">
+          <Key>
+            <PropertyRef Name="OwnerId" />
+          </Key>
+          <Property Name="OwnerId" Type="Int32" Nullable="false" />
+          <Property Name="OwnerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerPlanSpace" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ExpDate" Type="DateTime" Precision="3" />
+          <Property Name="OwnerParentId" Type="Int32" />
+          <Property Name="IsDel" Type="Boolean" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="mtUser" Relationship="Self.FK_mtUser_mtOwner" FromRole="mtOwner" ToRole="mtUser" />
+          <NavigationProperty Name="tbOwnerRfid" Relationship="Self.FK_tbOwnerRfid_mtOwner" FromRole="mtOwner" ToRole="tbOwnerRfid" />
+        </EntityType>
+        <EntityType Name="mtPower">
+          <Key>
+            <PropertyRef Name="PowerId" />
+          </Key>
+          <Property Name="PowerId" Type="Int32" Nullable="false" />
+          <Property Name="PowerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="mtRegistrant">
+          <Key>
+            <PropertyRef Name="AutoID" />
+          </Key>
+          <Property Name="AutoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrantType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RegistrantMaxID" Type="Int32" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="mtRfidCode">
+          <Key>
+            <PropertyRef Name="AutoId" />
+          </Key>
+          <Property Name="AutoId" Type="Int32" Nullable="false" />
+          <Property Name="RfidCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="TID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IsDel" Type="Boolean" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="tbIORecord" Relationship="Self.FK_tbIORecord_mtRfidCode" FromRole="mtRfidCode" ToRole="tbIORecord" />
+          <NavigationProperty Name="tbOwnerRfid" Relationship="Self.FK_tbOwnerRfid_mtRfidCode" FromRole="mtRfidCode" ToRole="tbOwnerRfid" />
+        </EntityType>
+        <EntityType Name="mtUniversalCode">
+          <Key>
+            <PropertyRef Name="UniversalType" />
+            <PropertyRef Name="CodeID" />
+          </Key>
+          <Property Name="UniversalType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CodeID" Type="Int32" Nullable="false" />
+          <Property Name="CodeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CodeEn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="mtUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserPWD" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserParentId" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="IsDel" Type="Boolean" />
+          <Property Name="OwnerId" Type="Int32" />
+          <Property Name="ActorId" Type="Int32" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="mtOwner" Relationship="Self.FK_mtUser_mtOwner" FromRole="mtUser" ToRole="mtOwner" />
+        </EntityType>
+        <EntityType Name="mtUserActor">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ActorId" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ActorId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tbActorPower">
+          <Key>
+            <PropertyRef Name="ActorId" />
+            <PropertyRef Name="FuncNo" />
+            <PropertyRef Name="PowerId" />
+            <PropertyRef Name="FuncType" />
+          </Key>
+          <Property Name="ActorId" Type="Int32" Nullable="false" />
+          <Property Name="FuncNo" Type="Int32" Nullable="false" />
+          <Property Name="PowerId" Type="Int32" Nullable="false" />
+          <Property Name="FuncType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbApplyBill">
+          <Key>
+            <PropertyRef Name="ApplyID" />
+          </Key>
+          <Property Name="ApplyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplyType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ObjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ApplyDate" Type="DateTime" Precision="3" />
+          <Property Name="Updater" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="StateType" Type="Int32" />
+          <NavigationProperty Name="tbConfirmState" Relationship="Self.FK_tbConfirmState_tbApplyBill" FromRole="tbApplyBill" ToRole="tbConfirmState" />
+        </EntityType>
+        <EntityType Name="tbBuniess">
+          <Key>
+            <PropertyRef Name="BuniessID" />
+          </Key>
+          <Property Name="BuniessID" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BuniessType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BuniessContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsCompleted" Type="Int32" />
+          <Property Name="Updater" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ClientIP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbCar">
+          <Key>
+            <PropertyRef Name="CarID" />
+            <PropertyRef Name="Version" />
+          </Key>
+          <Property Name="CarID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Version" Type="Int32" Nullable="false" />
+          <Property Name="CarLicence" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CarType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CarVehicleNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaxWeight" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MinWeight" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ExpDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="StateCode" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ResFiles" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Drivers" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CurrProject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ParkSpace" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="JobPartTime" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SkillItem" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CarPic" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbCheckInOut">
+          <Key>
+            <PropertyRef Name="CheckID" />
+            <PropertyRef Name="Version" />
+          </Key>
+          <Property Name="CheckID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Version" Type="Int32" Nullable="false" />
+          <Property Name="InOutFlag" Type="Int32" />
+          <Property Name="InOutType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CheckTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CheckContent" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="StateCode" Type="Int32" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbCheckInOuts">
+          <Key>
+            <PropertyRef Name="CheckID" />
+            <PropertyRef Name="Version" />
+            <PropertyRef Name="SortNo" />
+          </Key>
+          <Property Name="CheckID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Version" Type="Int32" Nullable="false" />
+          <Property Name="SortNo" Type="Int32" Nullable="false" />
+          <Property Name="UseType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ObjectId" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="ObjectVersion" Type="Int32" />
+          <Property Name="Memo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbConfirmState">
+          <Key>
+            <PropertyRef Name="ApplyID" />
+          </Key>
+          <Property Name="ApplyID" Type="Int32" Nullable="false" />
+          <Property Name="CurrConfirmLevel" Type="Int32" />
+          <Property Name="NeedConfirmLevel" Type="Int32" />
+          <Property Name="ConfirmerID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmerDate" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="ConfirmeMemo" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmerAutoID" Type="Int32" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="tbApplyBill" Relationship="Self.FK_tbConfirmState_tbApplyBill" FromRole="tbConfirmState" ToRole="tbApplyBill" />
+        </EntityType>
+        <EntityType Name="tbFiles">
+          <Key>
+            <PropertyRef Name="FileID" />
+          </Key>
+          <Property Name="FileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FileName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FilePath" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbIORecord">
+          <Key>
+            <PropertyRef Name="AutoID" />
+          </Key>
+          <Property Name="AutoID" Type="Int32" Nullable="false" />
+          <Property Name="RfidAutoId" Type="Int32" />
+          <Property Name="WatchHouse" Type="Int32" />
+          <Property Name="IOFlag" Type="Boolean" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="DevicesID" Type="Int32" />
+          <NavigationProperty Name="mtRfidCode" Relationship="Self.FK_tbIORecord_mtRfidCode" FromRole="tbIORecord" ToRole="mtRfidCode" />
+        </EntityType>
+        <EntityType Name="tbOwnerCamera">
+          <Key>
+            <PropertyRef Name="OwnerId" />
+            <PropertyRef Name="CameraID" />
+          </Key>
+          <Property Name="OwnerId" Type="Int32" Nullable="false" />
+          <Property Name="CameraID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbPeblish">
+          <Key>
+            <PropertyRef Name="PeblishID" />
+          </Key>
+          <Property Name="PeblishID" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PeblishType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PeblishTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PeblishContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FileIDs" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Updater" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbPeople">
+          <Key>
+            <PropertyRef Name="PeopleID" />
+            <PropertyRef Name="Version" />
+          </Key>
+          <Property Name="PeopleID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Version" Type="Int32" Nullable="false" />
+          <Property Name="PeopleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sexy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdentityCardID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExpDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+          <Property Name="StateCode" Type="Int32" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Native" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CurrProject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="JobPartTime" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QQ" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WeiXin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HeadPhotoPic" Type="Int32" />
+          <Property Name="FingerprintLeftPic" Type="Int32" />
+          <Property Name="FingerprintRightPic" Type="Int32" />
+          <Property Name="SkillItem" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PicFileId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbProduct">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="Version" />
+          </Key>
+          <Property Name="ProductID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Version" Type="Int32" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductSpec" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductQuantity" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ProductUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="StateCode" Type="Int32" />
+          <Property Name="ResFiles" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CurrProject" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Space" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="JobPartTime" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="SkillItem" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ProductPic" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbReceive">
+          <Key>
+            <PropertyRef Name="AutoID" />
+          </Key>
+          <Property Name="AutoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TurnoverType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TurnoverContent" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="TurnoverDate" Type="DateTime" Precision="3" />
+          <Property Name="TurnoverMoney" Type="Decimal" Precision="21" Scale="4" />
+          <Property Name="Updater" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerID" Type="Int32" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbRepair">
+          <Key>
+            <PropertyRef Name="RepairID" />
+          </Key>
+          <Property Name="RepairID" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RepairType" Type="Int32" />
+          <Property Name="RepairTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RepairContent" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="StateCode" Type="Int32" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbResourceFiles">
+          <Key>
+            <PropertyRef Name="ResFileID" />
+          </Key>
+          <Property Name="ResFileID" Type="Int32" Nullable="false" />
+          <Property Name="ResFileType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ResFileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ResFilePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbTemp">
+          <Key>
+            <PropertyRef Name="TempID" />
+            <PropertyRef Name="Version" />
+          </Key>
+          <Property Name="TempID" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Version" Type="Int32" Nullable="false" />
+          <Property Name="UseType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TempName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TempDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="StateCode" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbWeight">
+          <Key>
+            <PropertyRef Name="AutoID" />
+          </Key>
+          <Property Name="AutoID" Type="Int32" Nullable="false" />
+          <Property Name="WeightDate" Type="DateTime" Precision="3" />
+          <Property Name="WeightValue" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="WeightUnit" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="WatchHouse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DevicesID" Type="Int32" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="mtDevices">
+          <Key>
+            <PropertyRef Name="DevicesID" />
+          </Key>
+          <Property Name="DevicesID" Type="Int32" Nullable="false" />
+          <Property Name="DevicesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DevicesType" Type="Int32" />
+          <Property Name="DevicesMemo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="tbOwnerRfid">
+          <Key>
+            <PropertyRef Name="RfidAutoId" />
+            <PropertyRef Name="UseType" />
+          </Key>
+          <Property Name="RfidAutoId" Type="Int32" Nullable="false" />
+          <Property Name="UseType" Type="Int32" Nullable="false" />
+          <Property Name="OwnerId" Type="Int32" />
+          <Property Name="ObjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ListType" Type="Int32" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="mtOwner" Relationship="Self.FK_tbOwnerRfid_mtOwner" FromRole="tbOwnerRfid" ToRole="mtOwner" />
+          <NavigationProperty Name="mtRfidCode" Relationship="Self.FK_tbOwnerRfid_mtRfidCode" FromRole="tbOwnerRfid" ToRole="mtRfidCode" />
+        </EntityType>
+        <EntityType Name="mdlPeblish">
+          <Key>
+            <PropertyRef Name="PeblishID" />
+          </Key>
+          <Property Name="PeblishID" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PeblishType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PeblishTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PeblishContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FileIDs" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Updater" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="twCarLastVersion">
+          <Key>
+            <PropertyRef Name="CarID" />
+          </Key>
+          <Property Name="CarID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Version" Type="Int32" />
+          <Property Name="PicFileID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="twIORecord">
+          <Key>
+            <PropertyRef Name="AutoID" />
+            <PropertyRef Name="IOFlagInfo" />
+          </Key>
+          <Property Name="AutoID" Type="Int32" Nullable="false" />
+          <Property Name="UseType" Type="Int32" />
+          <Property Name="ObjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerId" Type="Int32" />
+          <Property Name="WatchHouseName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IOFlagInfo" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="twOwnerRfidStatus">
+          <Key>
+            <PropertyRef Name="RfidAutoId" />
+            <PropertyRef Name="UseType" />
+            <PropertyRef Name="ResFileId" />
+          </Key>
+          <Property Name="RfidAutoId" Type="Int32" Nullable="false" />
+          <Property Name="OwnerId" Type="Int32" />
+          <Property Name="UseType" Type="Int32" Nullable="false" />
+          <Property Name="ObjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ResFileId" Type="Int32" Nullable="false" />
+          <Property Name="ListType" Type="Int32" />
+          <Property Name="IsDel" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="twPeopleLastVersion">
+          <Key>
+            <PropertyRef Name="PeopleID" />
+          </Key>
+          <Property Name="PeopleID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Version" Type="Int32" />
+          <Property Name="PicFileID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="twProductLastVersion">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Version" Type="Int32" />
+          <Property Name="PicFileID" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_mtUser_mtOwner">
+          <End Role="mtOwner" Type="Self.mtOwner" Multiplicity="0..1" />
+          <End Role="mtUser" Type="Self.mtUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mtOwner">
+              <PropertyRef Name="OwnerId" />
+            </Principal>
+            <Dependent Role="mtUser">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbOwnerRfid_mtOwner">
+          <End Role="mtOwner" Type="Self.mtOwner" Multiplicity="0..1" />
+          <End Role="tbOwnerRfid" Type="Self.tbOwnerRfid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mtOwner">
+              <PropertyRef Name="OwnerId" />
+            </Principal>
+            <Dependent Role="tbOwnerRfid">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbIORecord_mtRfidCode">
+          <End Role="mtRfidCode" Type="Self.mtRfidCode" Multiplicity="0..1" />
+          <End Role="tbIORecord" Type="Self.tbIORecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mtRfidCode">
+              <PropertyRef Name="AutoId" />
+            </Principal>
+            <Dependent Role="tbIORecord">
+              <PropertyRef Name="RfidAutoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbOwnerRfid_mtRfidCode">
+          <End Role="mtRfidCode" Type="Self.mtRfidCode" Multiplicity="1" />
+          <End Role="tbOwnerRfid" Type="Self.tbOwnerRfid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mtRfidCode">
+              <PropertyRef Name="AutoId" />
+            </Principal>
+            <Dependent Role="tbOwnerRfid">
+              <PropertyRef Name="RfidAutoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbConfirmState_tbApplyBill">
+          <End Role="tbApplyBill" Type="Self.tbApplyBill" Multiplicity="1" />
+          <End Role="tbConfirmState" Type="Self.tbConfirmState" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbApplyBill">
+              <PropertyRef Name="ApplyID" />
+            </Principal>
+            <Dependent Role="tbConfirmState">
+              <PropertyRef Name="ApplyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ajIIPdbEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Functions" EntityType="Self.Functions" />
+          <EntitySet Name="mtActor" EntityType="Self.mtActor" />
+          <EntitySet Name="mtCamera" EntityType="Self.mtCamera" />
+          <EntitySet Name="mtConfirmAuto" EntityType="Self.mtConfirmAuto" />
+          <EntitySet Name="mtConfirmFlow" EntityType="Self.mtConfirmFlow" />
+          <EntitySet Name="mtConfirmLevel" EntityType="Self.mtConfirmLevel" />
+          <EntitySet Name="mtFunction" EntityType="Self.mtFunction" />
+          <EntitySet Name="mtOwner" EntityType="Self.mtOwner" />
+          <EntitySet Name="mtPower" EntityType="Self.mtPower" />
+          <EntitySet Name="mtRegistrant" EntityType="Self.mtRegistrant" />
+          <EntitySet Name="mtRfidCode" EntityType="Self.mtRfidCode" />
+          <EntitySet Name="mtUniversalCode" EntityType="Self.mtUniversalCode" />
+          <EntitySet Name="mtUser" EntityType="Self.mtUser" />
+          <EntitySet Name="mtUserActor" EntityType="Self.mtUserActor" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="tbActorPower" EntityType="Self.tbActorPower" />
+          <EntitySet Name="tbApplyBill" EntityType="Self.tbApplyBill" />
+          <EntitySet Name="tbBuniess" EntityType="Self.tbBuniess" />
+          <EntitySet Name="tbCar" EntityType="Self.tbCar" />
+          <EntitySet Name="tbCheckInOut" EntityType="Self.tbCheckInOut" />
+          <EntitySet Name="tbCheckInOuts" EntityType="Self.tbCheckInOuts" />
+          <EntitySet Name="tbConfirmState" EntityType="Self.tbConfirmState" />
+          <EntitySet Name="tbFiles" EntityType="Self.tbFiles" />
+          <EntitySet Name="tbIORecord" EntityType="Self.tbIORecord" />
+          <EntitySet Name="tbOwnerCamera" EntityType="Self.tbOwnerCamera" />
+          <EntitySet Name="tbPeblish" EntityType="Self.tbPeblish" />
+          <EntitySet Name="tbPeople" EntityType="Self.tbPeople" />
+          <EntitySet Name="tbProduct" EntityType="Self.tbProduct" />
+          <EntitySet Name="tbReceive" EntityType="Self.tbReceive" />
+          <EntitySet Name="tbRepair" EntityType="Self.tbRepair" />
+          <EntitySet Name="tbResourceFiles" EntityType="Self.tbResourceFiles" />
+          <EntitySet Name="tbTemp" EntityType="Self.tbTemp" />
+          <EntitySet Name="tbWeight" EntityType="Self.tbWeight" />
+          <EntitySet Name="mtDevices" EntityType="Self.mtDevices" />
+          <EntitySet Name="tbOwnerRfid" EntityType="Self.tbOwnerRfid" />
+          <EntitySet Name="mdlPeblish" EntityType="Self.mdlPeblish" />
+          <EntitySet Name="twCarLastVersion" EntityType="Self.twCarLastVersion" />
+          <EntitySet Name="twIORecord" EntityType="Self.twIORecord" />
+          <EntitySet Name="twOwnerRfidStatus" EntityType="Self.twOwnerRfidStatus" />
+          <EntitySet Name="twPeopleLastVersion" EntityType="Self.twPeopleLastVersion" />
+          <EntitySet Name="twProductLastVersion" EntityType="Self.twProductLastVersion" />
+          <AssociationSet Name="FK_mtUser_mtOwner" Association="Self.FK_mtUser_mtOwner">
+            <End Role="mtOwner" EntitySet="mtOwner" />
+            <End Role="mtUser" EntitySet="mtUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbOwnerRfid_mtOwner" Association="Self.FK_tbOwnerRfid_mtOwner">
+            <End Role="mtOwner" EntitySet="mtOwner" />
+            <End Role="tbOwnerRfid" EntitySet="tbOwnerRfid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbIORecord_mtRfidCode" Association="Self.FK_tbIORecord_mtRfidCode">
+            <End Role="mtRfidCode" EntitySet="mtRfidCode" />
+            <End Role="tbIORecord" EntitySet="tbIORecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbOwnerRfid_mtRfidCode" Association="Self.FK_tbOwnerRfid_mtRfidCode">
+            <End Role="mtRfidCode" EntitySet="mtRfidCode" />
+            <End Role="tbOwnerRfid" EntitySet="tbOwnerRfid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbConfirmState_tbApplyBill" Association="Self.FK_tbConfirmState_tbApplyBill">
+            <End Role="tbApplyBill" EntitySet="tbApplyBill" />
+            <End Role="tbConfirmState" EntitySet="tbConfirmState" />
+          </AssociationSet>
+          <FunctionImport Name="Proc_RegistrantID">
+            <Parameter Name="RegistrantType" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ajIIPdbModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ajIIPdbModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ajIIPdbModelStoreContainer" CdmEntityContainer="ajIIPdbEntities1">
+          <EntitySetMapping Name="Functions">
+            <EntityTypeMapping TypeName="ajIIPdbModel.Functions">
+              <MappingFragment StoreEntitySet="Functions">
+                <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
+                <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
+                <ScalarProperty Name="Superior" ColumnName="Superior" />
+                <ScalarProperty Name="MasterMenu" ColumnName="MasterMenu" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="IsPhone" ColumnName="IsPhone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mtActor">
+            <EntityTypeMapping TypeName="ajIIPdbModel.mtActor">
+              <MappingFragment StoreEntitySet="mtActor">
+                <ScalarProperty Name="ActorID" ColumnName="ActorID" />
+                <ScalarProperty Name="ActorName" ColumnName="ActorName" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="ActorType" ColumnName="ActorType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mtCamera">
+            <EntityTypeMapping TypeName="ajIIPdbModel.mtCamera">
+              <MappingFragment StoreEntitySet="mtCamera">
+                <ScalarProperty Name="CameraID" ColumnName="CameraID" />
+                <ScalarProperty Name="CameraName" ColumnName="CameraName" />
+                <ScalarProperty Name="CameraURL" ColumnName="CameraURL" />
+                <ScalarProperty Name="CameraMemo" ColumnName="CameraMemo" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mtConfirmAuto">
+            <EntityTypeMapping TypeName="ajIIPdbModel.mtConfirmAuto">
+              <MappingFragment StoreEntitySet="mtConfirmAuto">
+                <ScalarProperty Name="ConfirmAutoID" ColumnName="ConfirmAutoID" />
+                <ScalarProperty Name="ConfirmFlowName" ColumnName="ConfirmFlowName" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mtConfirmFlow">
+            <EntityTypeMapping TypeName="ajIIPdbModel.mtConfirmFlow">
+              <MappingFragment StoreEntitySet="mtConfirmFlow">
+                <ScalarProperty Name="ConfirmerAutoID" ColumnName="ConfirmerAutoID" />
+                <ScalarProperty Name="ConfirmerLevelID" ColumnName="ConfirmerLevelID" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mtConfirmLevel">
+            <EntityTypeMapping TypeName="ajIIPdbModel.mtConfirmLevel">
+              <MappingFragment StoreEntitySet="mtConfirmLevel">
+                <ScalarProperty Name="ConfirmLevelID" ColumnName="ConfirmLevelID" />
+                <ScalarProperty Name="ConfirmLevelName" ColumnName="ConfirmLevelName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mtFunction">
+            <EntityTypeMapping TypeName="ajIIPdbModel.mtFunction">
+              <MappingFragment StoreEntitySet="mtFunction">
+                <ScalarProperty Name="FuncNo" ColumnName="FuncNo" />
+                <ScalarProperty Name="FuncName" ColumnName="FuncName" />
+                <ScalarProperty Name="FuncPage" ColumnName="FuncPage" />
+                <ScalarProperty Name="FuncParentNo" ColumnName="FuncParentNo" />
+                <ScalarProperty Name="IsEndNode" ColumnName="IsEndNode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mtOwner">
+            <EntityTypeMapping TypeName="ajIIPdbModel.mtOwner">
+              <MappingFragment StoreEntitySet="mtOwner">
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="OwnerPlanSpace" ColumnName="OwnerPlanSpace" />
+                <ScalarProperty Name="ExpDate" ColumnName="ExpDate" />
+                <ScalarProperty Name="OwnerParentId" ColumnName="OwnerParentId" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mtPower">
+            <EntityTypeMapping TypeName="ajIIPdbModel.mtPower">
+              <MappingFragment StoreEntitySet="mtPower">
+                <ScalarProperty Name="PowerId" ColumnName="PowerId" />
+                <ScalarProperty Name="PowerName" ColumnName="PowerName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mtRegistrant">
+            <EntityTypeMapping TypeName="ajIIPdbModel.mtRegistrant">
+              <MappingFragment StoreEntitySet="mtRegistrant">
+                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+                <ScalarProperty Name="RegistrantType" ColumnName="RegistrantType" />
+                <ScalarProperty Name="RegistrantMaxID" ColumnName="RegistrantMaxID" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mtRfidCode">
+            <EntityTypeMapping TypeName="ajIIPdbModel.mtRfidCode">
+              <MappingFragment StoreEntitySet="mtRfidCode">
+                <ScalarProperty Name="AutoId" ColumnName="AutoId" />
+                <ScalarProperty Name="RfidCode" ColumnName="RfidCode" />
+                <ScalarProperty Name="TID" ColumnName="TID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mtUniversalCode">
+            <EntityTypeMapping TypeName="ajIIPdbModel.mtUniversalCode">
+              <MappingFragment StoreEntitySet="mtUniversalCode">
+                <ScalarProperty Name="UniversalType" ColumnName="UniversalType" />
+                <ScalarProperty Name="CodeID" ColumnName="CodeID" />
+                <ScalarProperty Name="CodeName" ColumnName="CodeName" />
+                <ScalarProperty Name="CodeEn" ColumnName="CodeEn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mtUser">
+            <EntityTypeMapping TypeName="ajIIPdbModel.mtUser">
+              <MappingFragment StoreEntitySet="mtUser">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPWD" ColumnName="UserPWD" />
+                <ScalarProperty Name="UserParentId" ColumnName="UserParentId" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="ActorId" ColumnName="ActorId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mtUserActor">
+            <EntityTypeMapping TypeName="ajIIPdbModel.mtUserActor">
+              <MappingFragment StoreEntitySet="mtUserActor">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ActorId" ColumnName="ActorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ajIIPdbModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbActorPower">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbActorPower">
+              <MappingFragment StoreEntitySet="tbActorPower">
+                <ScalarProperty Name="ActorId" ColumnName="ActorId" />
+                <ScalarProperty Name="FuncNo" ColumnName="FuncNo" />
+                <ScalarProperty Name="PowerId" ColumnName="PowerId" />
+                <ScalarProperty Name="FuncType" ColumnName="FuncType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbApplyBill">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbApplyBill">
+              <MappingFragment StoreEntitySet="tbApplyBill">
+                <ScalarProperty Name="ApplyID" ColumnName="ApplyID" />
+                <ScalarProperty Name="ApplyType" ColumnName="ApplyType" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
+                <ScalarProperty Name="Updater" ColumnName="Updater" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="StateType" ColumnName="StateType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbBuniess">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbBuniess">
+              <MappingFragment StoreEntitySet="tbBuniess">
+                <ScalarProperty Name="BuniessID" ColumnName="BuniessID" />
+                <ScalarProperty Name="BuniessType" ColumnName="BuniessType" />
+                <ScalarProperty Name="BuniessContent" ColumnName="BuniessContent" />
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+                <ScalarProperty Name="Updater" ColumnName="Updater" />
+                <ScalarProperty Name="ClientIP" ColumnName="ClientIP" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbCar">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbCar">
+              <MappingFragment StoreEntitySet="tbCar">
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="CarLicence" ColumnName="CarLicence" />
+                <ScalarProperty Name="CarType" ColumnName="CarType" />
+                <ScalarProperty Name="CarVehicleNo" ColumnName="CarVehicleNo" />
+                <ScalarProperty Name="MaxWeight" ColumnName="MaxWeight" />
+                <ScalarProperty Name="MinWeight" ColumnName="MinWeight" />
+                <ScalarProperty Name="ExpDate" ColumnName="ExpDate" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+                <ScalarProperty Name="ResFiles" ColumnName="ResFiles" />
+                <ScalarProperty Name="Drivers" ColumnName="Drivers" />
+                <ScalarProperty Name="CurrProject" ColumnName="CurrProject" />
+                <ScalarProperty Name="ParkSpace" ColumnName="ParkSpace" />
+                <ScalarProperty Name="JobPartTime" ColumnName="JobPartTime" />
+                <ScalarProperty Name="SkillItem" ColumnName="SkillItem" />
+                <ScalarProperty Name="CarPic" ColumnName="CarPic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbCheckInOut">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbCheckInOut">
+              <MappingFragment StoreEntitySet="tbCheckInOut">
+                <ScalarProperty Name="CheckID" ColumnName="CheckID" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="InOutFlag" ColumnName="InOutFlag" />
+                <ScalarProperty Name="InOutType" ColumnName="InOutType" />
+                <ScalarProperty Name="CheckTitle" ColumnName="CheckTitle" />
+                <ScalarProperty Name="CheckContent" ColumnName="CheckContent" />
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbCheckInOuts">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbCheckInOuts">
+              <MappingFragment StoreEntitySet="tbCheckInOuts">
+                <ScalarProperty Name="CheckID" ColumnName="CheckID" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="SortNo" ColumnName="SortNo" />
+                <ScalarProperty Name="UseType" ColumnName="UseType" />
+                <ScalarProperty Name="ObjectId" ColumnName="ObjectId" />
+                <ScalarProperty Name="ObjectVersion" ColumnName="ObjectVersion" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbConfirmState">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbConfirmState">
+              <MappingFragment StoreEntitySet="tbConfirmState">
+                <ScalarProperty Name="ApplyID" ColumnName="ApplyID" />
+                <ScalarProperty Name="CurrConfirmLevel" ColumnName="CurrConfirmLevel" />
+                <ScalarProperty Name="NeedConfirmLevel" ColumnName="NeedConfirmLevel" />
+                <ScalarProperty Name="ConfirmerID" ColumnName="ConfirmerID" />
+                <ScalarProperty Name="ConfirmerDate" ColumnName="ConfirmerDate" />
+                <ScalarProperty Name="ConfirmeMemo" ColumnName="ConfirmeMemo" />
+                <ScalarProperty Name="ConfirmerAutoID" ColumnName="ConfirmerAutoID" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbFiles">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbFiles">
+              <MappingFragment StoreEntitySet="tbFiles">
+                <ScalarProperty Name="FileID" ColumnName="FileID" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbIORecord">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbIORecord">
+              <MappingFragment StoreEntitySet="tbIORecord">
+                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+                <ScalarProperty Name="RfidAutoId" ColumnName="RfidAutoId" />
+                <ScalarProperty Name="WatchHouse" ColumnName="WatchHouse" />
+                <ScalarProperty Name="IOFlag" ColumnName="IOFlag" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="DevicesID" ColumnName="DevicesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbOwnerCamera">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbOwnerCamera">
+              <MappingFragment StoreEntitySet="tbOwnerCamera">
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="CameraID" ColumnName="CameraID" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbPeblish">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbPeblish">
+              <MappingFragment StoreEntitySet="tbPeblish">
+                <ScalarProperty Name="PeblishID" ColumnName="PeblishID" />
+                <ScalarProperty Name="PeblishType" ColumnName="PeblishType" />
+                <ScalarProperty Name="PeblishTitle" ColumnName="PeblishTitle" />
+                <ScalarProperty Name="PeblishContent" ColumnName="PeblishContent" />
+                <ScalarProperty Name="FileIDs" ColumnName="FileIDs" />
+                <ScalarProperty Name="Updater" ColumnName="Updater" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbPeople">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbPeople">
+              <MappingFragment StoreEntitySet="tbPeople">
+                <ScalarProperty Name="PeopleID" ColumnName="PeopleID" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="PeopleName" ColumnName="PeopleName" />
+                <ScalarProperty Name="Sexy" ColumnName="Sexy" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="PhoneNum" ColumnName="PhoneNum" />
+                <ScalarProperty Name="IdentityCardID" ColumnName="IdentityCardID" />
+                <ScalarProperty Name="ExpDate" ColumnName="ExpDate" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Native" ColumnName="Native" />
+                <ScalarProperty Name="CurrProject" ColumnName="CurrProject" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="JobPartTime" ColumnName="JobPartTime" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="QQ" ColumnName="QQ" />
+                <ScalarProperty Name="WeiXin" ColumnName="WeiXin" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="HeadPhotoPic" ColumnName="HeadPhotoPic" />
+                <ScalarProperty Name="FingerprintLeftPic" ColumnName="FingerprintLeftPic" />
+                <ScalarProperty Name="FingerprintRightPic" ColumnName="FingerprintRightPic" />
+                <ScalarProperty Name="SkillItem" ColumnName="SkillItem" />
+                <ScalarProperty Name="PicFileId" ColumnName="PicFileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbProduct">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbProduct">
+              <MappingFragment StoreEntitySet="tbProduct">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductSpec" ColumnName="ProductSpec" />
+                <ScalarProperty Name="ProductQuantity" ColumnName="ProductQuantity" />
+                <ScalarProperty Name="ProductUnit" ColumnName="ProductUnit" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+                <ScalarProperty Name="ResFiles" ColumnName="ResFiles" />
+                <ScalarProperty Name="CurrProject" ColumnName="CurrProject" />
+                <ScalarProperty Name="Space" ColumnName="Space" />
+                <ScalarProperty Name="JobPartTime" ColumnName="JobPartTime" />
+                <ScalarProperty Name="SkillItem" ColumnName="SkillItem" />
+                <ScalarProperty Name="ProductPic" ColumnName="ProductPic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbReceive">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbReceive">
+              <MappingFragment StoreEntitySet="tbReceive">
+                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+                <ScalarProperty Name="TurnoverType" ColumnName="TurnoverType" />
+                <ScalarProperty Name="TurnoverContent" ColumnName="TurnoverContent" />
+                <ScalarProperty Name="TurnoverDate" ColumnName="TurnoverDate" />
+                <ScalarProperty Name="TurnoverMoney" ColumnName="TurnoverMoney" />
+                <ScalarProperty Name="Updater" ColumnName="Updater" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbRepair">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbRepair">
+              <MappingFragment StoreEntitySet="tbRepair">
+                <ScalarProperty Name="RepairID" ColumnName="RepairID" />
+                <ScalarProperty Name="RepairType" ColumnName="RepairType" />
+                <ScalarProperty Name="RepairTitle" ColumnName="RepairTitle" />
+                <ScalarProperty Name="RepairContent" ColumnName="RepairContent" />
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbResourceFiles">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbResourceFiles">
+              <MappingFragment StoreEntitySet="tbResourceFiles">
+                <ScalarProperty Name="ResFileID" ColumnName="ResFileID" />
+                <ScalarProperty Name="ResFileType" ColumnName="ResFileType" />
+                <ScalarProperty Name="ResFileName" ColumnName="ResFileName" />
+                <ScalarProperty Name="ResFilePath" ColumnName="ResFilePath" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbTemp">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbTemp">
+              <MappingFragment StoreEntitySet="tbTemp">
+                <ScalarProperty Name="TempID" ColumnName="TempID" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UseType" ColumnName="UseType" />
+                <ScalarProperty Name="TempName" ColumnName="TempName" />
+                <ScalarProperty Name="TempDesc" ColumnName="TempDesc" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbWeight">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbWeight">
+              <MappingFragment StoreEntitySet="tbWeight">
+                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+                <ScalarProperty Name="WeightDate" ColumnName="WeightDate" />
+                <ScalarProperty Name="WeightValue" ColumnName="WeightValue" />
+                <ScalarProperty Name="WeightUnit" ColumnName="WeightUnit" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="WatchHouse" ColumnName="WatchHouse" />
+                <ScalarProperty Name="DevicesID" ColumnName="DevicesID" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mtDevices">
+            <EntityTypeMapping TypeName="ajIIPdbModel.mtDevices">
+              <MappingFragment StoreEntitySet="mtDevices">
+                <ScalarProperty Name="DevicesID" ColumnName="DevicesID" />
+                <ScalarProperty Name="DevicesName" ColumnName="DevicesName" />
+                <ScalarProperty Name="DevicesType" ColumnName="DevicesType" />
+                <ScalarProperty Name="DevicesMemo" ColumnName="DevicesMemo" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbOwnerRfid">
+            <EntityTypeMapping TypeName="ajIIPdbModel.tbOwnerRfid">
+              <MappingFragment StoreEntitySet="tbOwnerRfid">
+                <ScalarProperty Name="RfidAutoId" ColumnName="RfidAutoId" />
+                <ScalarProperty Name="UseType" ColumnName="UseType" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="ListType" ColumnName="ListType" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mdlPeblish">
+            <EntityTypeMapping TypeName="ajIIPdbModel.mdlPeblish">
+              <MappingFragment StoreEntitySet="mdlPeblish">
+                <ScalarProperty Name="PeblishID" ColumnName="PeblishID" />
+                <ScalarProperty Name="PeblishType" ColumnName="PeblishType" />
+                <ScalarProperty Name="PeblishTitle" ColumnName="PeblishTitle" />
+                <ScalarProperty Name="PeblishContent" ColumnName="PeblishContent" />
+                <ScalarProperty Name="FileIDs" ColumnName="FileIDs" />
+                <ScalarProperty Name="Updater" ColumnName="Updater" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="twCarLastVersion">
+            <EntityTypeMapping TypeName="ajIIPdbModel.twCarLastVersion">
+              <MappingFragment StoreEntitySet="twCarLastVersion">
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="PicFileID" ColumnName="PicFileID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="twIORecord">
+            <EntityTypeMapping TypeName="ajIIPdbModel.twIORecord">
+              <MappingFragment StoreEntitySet="twIORecord">
+                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+                <ScalarProperty Name="UseType" ColumnName="UseType" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="WatchHouseName" ColumnName="WatchHouseName" />
+                <ScalarProperty Name="IOFlagInfo" ColumnName="IOFlagInfo" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="twOwnerRfidStatus">
+            <EntityTypeMapping TypeName="ajIIPdbModel.twOwnerRfidStatus">
+              <MappingFragment StoreEntitySet="twOwnerRfidStatus">
+                <ScalarProperty Name="RfidAutoId" ColumnName="RfidAutoId" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="UseType" ColumnName="UseType" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="ResFileId" ColumnName="ResFileId" />
+                <ScalarProperty Name="ListType" ColumnName="ListType" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="twPeopleLastVersion">
+            <EntityTypeMapping TypeName="ajIIPdbModel.twPeopleLastVersion">
+              <MappingFragment StoreEntitySet="twPeopleLastVersion">
+                <ScalarProperty Name="PeopleID" ColumnName="PeopleID" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="PicFileID" ColumnName="PicFileID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="twProductLastVersion">
+            <EntityTypeMapping TypeName="ajIIPdbModel.twProductLastVersion">
+              <MappingFragment StoreEntitySet="twProductLastVersion">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="PicFileID" ColumnName="PicFileID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Proc_RegistrantID" FunctionName="ajIIPdbModel.Store.Proc_RegistrantID" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="ajIIPdbModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="ajIIPdbModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="ajIIPdbModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="ajIIPdbModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ajIIPdbModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="ajIIPdbModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ajIIPdbModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ajIIPdbModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ajIIPdbModel.Store.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

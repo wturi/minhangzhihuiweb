@@ -1,0 +1,168 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    textarea {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+</style>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active"><a href="#wuye" data-toggle="tab">物业报修申请</a></li>
+            <li><a href="#gonggong" data-toggle="tab">公共设施报修申请</a></li>
+        </ul>
+
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="wuye">
+                <table class="table table-striped table-hover text-center">
+                    <tr>
+                        <th>#</th>
+                        <th>申请标题</th>
+                        <th>申请时间</th>
+                        <th>申请人</th>
+                    </tr>
+                    @if (ViewBag.RepairList1 != null)
+                    {
+                        int count = 1;
+                        string b = "wuye" + count;
+                        foreach (MinHangWisdomParkWeb.Controllers.ShenHe a in ViewBag.RepairList1 as List<MinHangWisdomParkWeb.Controllers.ShenHe>)
+                        {
+                            <tr>
+                                <td>@count</td>
+                                <td><button type="button" class="btn btn-link" data-toggle="modal" data-target="#@b">@a.Title</button></td>
+                                <td>@a.Time</td>
+                                <td>@a.Updater</td>
+                            </tr>
+                            count++;
+                        }
+                    }
+                </table>
+            </div>
+            <div class="tab-pane fade" id="gonggong">
+                <table class="table table-striped table-hover text-center">
+                    <tr>
+                        <th>#</th>
+                        <th>申请标题</th>
+                        <th>申请时间</th>
+                        <th>申请人</th>
+                    </tr>
+                    @if (ViewBag.RepairList2 != null)
+                    {
+                        int count = 1;
+                        string b = "gonggong" + count;
+                        foreach (MinHangWisdomParkWeb.Controllers.ShenHe a in ViewBag.RepairList2 as List<MinHangWisdomParkWeb.Controllers.ShenHe>)
+                        {
+                            <tr>
+                                <td>@count</td>
+                                <td><button type="button" class="btn btn-link" data-toggle="modal" data-target="#@b">@a.Title</button></td>
+                                <td>@a.Time</td>
+                                <td>@a.Updater</td>
+                            </tr>
+                            count++;
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+
+<!-- Modal -->
+@if (ViewBag.RepairList1 != null)
+{
+    int count = 1;
+    string b = "wuye" + count;
+    string bb = "wuyebb" + count;
+    foreach (MinHangWisdomParkWeb.Controllers.ShenHe a in ViewBag.RepairList1 as List<MinHangWisdomParkWeb.Controllers.ShenHe>)
+    {
+        <div class="modal fade" id="@b" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">@a.Title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>@a.Content</p>
+                        <p class="text-right small">申请人:<b>@a.Updater</b></p>
+                        <p class="text-right small">申请时间:<b>@a.Time</b></p>
+                    </div>
+                    <div class="modal-footer" tag="@a.ApplyID">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea class="form-control" rows="3" placeholder="请填写审核意见"></textarea>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-danger queren" tag="0">不通过</button>
+                        <button type="button" class="btn btn-primary queren" tag="1">通&nbsp;&nbsp;&nbsp;&nbsp;过</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        count++;
+    }
+}
+
+
+@if (ViewBag.RepairList2 != null)
+{
+    int count = 1;
+    string b = "gonggong" + count;
+    string bb = "gonggongbb" + count;
+    foreach (MinHangWisdomParkWeb.Controllers.ShenHe a in ViewBag.RepairList2 as List<MinHangWisdomParkWeb.Controllers.ShenHe>)
+    {
+        <div class="modal fade" id="@b" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">@a.Title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>@a.Content</p>
+                        <p class="text-right small">申请人:<b>@a.Updater</b></p>
+                        <p class="text-right small">申请时间:<b>@a.Time</b></p>
+                    </div>
+                    <div class="modal-footer" tag="@a.ApplyID">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea class="form-control" rows="3" placeholder="请填写审核意见"></textarea>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-danger queren" tag="0">不通过</button>
+                        <button type="button" class="btn btn-primary queren" tag="1">通&nbsp;&nbsp;&nbsp;&nbsp;过</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        count++;
+    }
+}
+
+
+<script type="text/javascript">
+    $(".queren").click(function () {
+        var applyid = $(this).parent().attr("tag");
+        var content = $(this).parent().find("textarea").val();
+        var bools = $(this).attr("tag");
+        $.post("ShenHe", { applyid: applyid, content: content, bools: bools }, function (data, status) {
+            if (status == "success") {
+                if (data.msg == "ok") {
+                    alert("审核成功！");
+                    location.reload();
+
+                } else {
+                    alert("审核失败！");
+                }
+            }
+        })
+    })
+</script>

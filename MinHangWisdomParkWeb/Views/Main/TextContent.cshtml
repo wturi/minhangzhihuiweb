@@ -1,0 +1,196 @@
+﻿@{
+    Layout = "~/Views/Shared/_ch.cshtml";
+}
+<link href="~/Styles/gundong.css" rel="stylesheet" />
+<link href="~/Styles/MainCss.css" rel="stylesheet" />
+<style type="text/css">
+    #carousel-example-generic {
+        width: 100%;
+    }
+
+    #rightlist img {
+        width: 40%;
+        margin: 5%;
+    }
+
+    .jumbotron {
+        background-color: white;
+    }
+</style>
+<div class="bodymain">
+    <div class="bodytitle">
+        <a href="#" class="pull-left"><img src="@Url.Content(MinHangWisdomParkWeb.GlobalParameter.LogoUrl)" /></a>
+        <div class="bodytitletab pull-left">
+            <a href="Main">首页</a>
+            <a href="TypeContent?TypeName=新闻">新闻</a>
+            <a href="TypeContent?TypeName=公告">公告</a>
+            <a href="TypeContent?TypeName=政策">政策</a>
+            <a href="TypeContent?TypeName=企业">企业</a>
+            <a href="http://139.196.36.201:8001/">网络社区</a>
+        </div>
+    </div>
+    <div class="bodycontent">
+        <div class="row">
+            <div class="col-lg-12">
+                <ol class="breadcrumb">
+                    <li><a href="Main">首页</a></li>
+                    <li><a href="TypeContent?TypeName=@ViewBag.TypeName">@ViewBag.TypeName</a></li>
+                    <li class="active">@ViewBag.Title</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <input type="hidden" value="@ViewBag.TypeName" id="TypeName" />
+                <div class="col-lg-12 text-center">
+                    @{
+                        if (ViewBag.Peblish != null)
+                        {
+                            <h1>@ViewBag.Peblish.PeblishTitle</h1>
+                        }
+                    }
+                </div>
+
+                <div class="col-lg-12 text-center">
+
+                    @{
+                        int a = 0;
+                        int b = 0;
+                    }
+                    @{
+                        if (ViewBag.Files != null)
+                        {
+                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                    @foreach (var i in ViewBag.Files as List<MinHangWisdomParkWeb.Models.tbFiles>)
+                                    {
+                                        if (a == 0)
+                                        {
+                                            <li data-target="#carousel-example-generic" data-slide-to="@a" class=" active"></li>
+                                        }
+                                        else
+                                        {
+                                            <li data-target="#carousel-example-generic" data-slide-to="@a"></li>
+                                        }
+                                        a++;
+                                    }
+                                </ol>
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner" role="listbox">
+                                    @foreach (var i in ViewBag.Files as List<MinHangWisdomParkWeb.Models.tbFiles>)
+                                    {
+                                        if (b == 0)
+                                        {
+                                            <div class="item active">
+                                                <img src="../..@i.FilePath" alt="...">
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="item">
+                                                <img src="../..@i.FilePath" alt="...">
+                                            </div>
+                                        }
+                                        b++;
+                                    }
+                                </div>
+
+                                <!-- Controls -->
+                                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        }
+                    }
+
+                </div>
+                <div class="col-lg-12">
+                    <div class="jumbotron" id="jum">
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-xs-push-0" id="rightlist">
+                @*右边列表*@
+
+            </div>
+        </div>
+    </div>
+</div>
+@{
+    if (ViewBag.Peblish != null)
+    {
+        <input type="hidden" id="contentsss" value="@ViewBag.Peblish.PeblishContent" />
+    }
+}
+<script type="text/javascript">
+    $(function () {
+        var typename = $('#TypeName').val();
+        var contentsss = $('#contentsss').val();
+        $('#jum').after().append(contentsss);
+
+        AllPeblish(typename);
+    })
+
+
+
+    //右边列表
+    function AllPeblish(typename) {
+        $.post("AllPeblish", function (data, status) {
+            if (status == "success") {
+                var str = '';
+                if (typename != "新闻") {
+                    str += '<div class="panel panel-default">' +
+                    '<div class="panel-heading">新闻</div>' +
+                    '<ul class="list-group">';
+                    $.each(data.News, function (i, item) {
+                        str += '<li class="list-group-item"><a href="TextContent?TypeName=新闻&PeblishID=' + item.PeblishID + '">' + item.PeblishTitle + '</a></li>'
+                    })
+                    str += '</ul></div>';
+                }
+                if (typename != "公告") {
+                    str += '<div class="panel panel-default">' +
+                    '<div class="panel-heading">公告</div>' +
+                    '<ul class="list-group">';
+                    $.each(data.Notice, function (i, item) {
+                        str += '<li class="list-group-item"><a href="TextContent?TypeName=公告&PeblishID=' + item.PeblishID + '">' + item.PeblishTitle + '</a></li>'
+                    })
+                    str += '</ul></div>';
+                }
+                if (typename != "政策") {
+                    str += '<div class="panel panel-default">' +
+                    '<div class="panel-heading">政策</div>' +
+                    '<ul class="list-group">';
+                    $.each(data.Policy, function (i, item) {
+                        str += '<li class="list-group-item"><a href="TextContent?TypeName=政策&PeblishID=' + item.PeblishID + '">' + item.PeblishTitle + '</a></li>'
+                    })
+                    str += '</ul></div>';
+                }
+                if (typename != "企业") {
+                    str += '<div class="panel panel-default">' +
+                    '<div class="panel-heading">企业</div>' +
+                    '<ul class="list-group">';
+                    $.each(data.Enterprises, function (i, item) {
+                        str += '<li class="list-group-item"><a href="TextContent?TypeName=企业&PeblishID=' + item.PeblishID + '">' + item.PeblishTitle + '</a></li>'
+                    })
+                    str += '</ul></div>';
+                }
+                if (typename != "广告") {
+                    str += '<div class="panel panel-default">' +
+                   '<div class="panel-heading">广告</div>';
+                    $.each(data.Advert, function (i, item) {
+                        str += '<a  href="' + item.httpurl + '"><img src="../' + item.imgurl + '" alt="..." class="img-thumbnail"></a>';
+                    })
+                    str += '</div>';
+                }
+                $('#rightlist').append(str);
+            }
+        })
+    }
+</script>

@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "闵行智慧园区";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="photosDemo" class="photos-demo">
+    <!-- layer-src表示大图  layer-pid表示图片id  src表示缩略图-->
+
+    <img layer-src="~/img/NewFolder2/01.JPG" layer-pid="" src="~/img/NewFolder2/01.JPG" alt="layer宣传图">
+    <img layer-src="~/img/NewFolder2/02.JPG" layer-pid="" src="~/img/NewFolder2/02.JPG" alt="我入互联网这五年">
+    <img layer-src="~/img/NewFolder2/03.JPG" layer-pid="" src="~/img/NewFolder2/03.JPG" alt="微摄影">
+    <img layer-src="~/img/NewFolder2/04.JPG" layer-pid="" src="~/img/NewFolder2/04.JPG" alt="三清山">
+    <img layer-src="~/img/NewFolder2/05.JPG" layer-pid="" src="~/img/NewFolder2/05.JPG" alt="国足">
+</div>
+<script>
+    ; !function () {
+
+        //加载扩展模块
+        layer.config({
+            extend: 'extend/layer.ext.js'
+        });
+
+        //页面一打开就执行，放入ready是为了layer所需配件（css、扩展模块）加载完毕
+        layer.ready(function () {
+            //使用相册
+            layer.photos({
+                photos: '#photosDemo'
+            });
+        });
+    }();
+</script>

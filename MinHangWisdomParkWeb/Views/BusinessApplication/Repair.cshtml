@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .row {
+        margin-bottom: 0.5em;
+    }
+</style>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <select class="form-control" id="PeblishType">
+            <option value="-1">选择报修类别</option>
+            @{
+                if (@ViewBag.TypeList != null)
+                {
+                    foreach (MinHangWisdomParkWeb.Models.mtUniversalCode m in @ViewBag.TypeList as List<MinHangWisdomParkWeb.Models.mtUniversalCode>)
+                    {
+                        <option value="@m.CodeID">@m.CodeName</option>
+                    }
+                }
+            }
+        </select>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <input type="text" class="form-control" id="PeblishTitle" placeholder="请输入标题">
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <textarea class="form-control" id="PublishContent" rows="6" placeholder="请输入内容"></textarea>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 text-center">
+        <button type="submit" id="btnzong" class="btn btn-info">确认提交</button>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<script type="text/javascript">
+    $("#btnzong").click(function () {
+        var RepairType = $("#PeblishType").val();
+        var RepairTitle = $("#PeblishTitle").val();
+        var RepairContent = $("#PublishContent").val();
+
+        if (RepairType == "-1") {
+            alert("请选择报修类别！");
+            return false; 
+        }
+        if (RepairTitle == "" || RepairContent == "") {
+            alert("标题 内容必须填写！");
+            return false;
+        }
+
+        $.post("Insert", { RepairType: RepairType, RepairTitle: RepairTitle, RepairContent: RepairContent }, function (data, stauts) {
+            if (stauts == "success") {
+                if (data.msg == "ok") {
+                    alert("提交成功");
+                    $("#PeblishType").val(-1);
+                    $("#PeblishTitle").val('');
+                    $("#PublishContent").val('');
+                } else {
+                    alert("提交失败！");
+                }
+            }
+        })
+    })
+
+</script>

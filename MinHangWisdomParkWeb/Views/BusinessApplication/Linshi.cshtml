@@ -1,0 +1,327 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .row, textarea, #PeblishPeople, select {
+        margin-top: 1em;
+    }
+
+    .alert-dismissible {
+        display: inline-block;
+        padding-top: 0.3em;
+        padding-bottom: 0.55em;
+        margin-right: 0.3em;
+    }
+
+    .modal-body {
+        padding: 0;
+    }
+
+    .modal-dialog {
+        width: 40%;
+        min-width: 300px;
+    }
+
+
+    #myModalPiZhun .modal-dialog {
+        width: 50%;
+        min-width: 600px;
+    }
+
+    #myModalPiZhun .modal-body {
+        padding-bottom: 3em;
+    }
+
+        #myModalPiZhun .modal-body button {
+            margin: 0.5em 0.7em;
+        }
+
+    .modal-dialog .modal-body {
+        max-height: 600px;
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+
+    .panel-heading {
+        height: 55px;
+    }
+
+    .panel-body {
+        padding: 0;
+    }
+
+    .xixniqueren {
+        margin-bottom: 2em;
+    }
+</style>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">
+                <input type="text" class="form-control" id="PeblishTitle" placeholder="请输入标题">
+            </div>
+            <div class="col-xs-12">
+                <textarea class="form-control" id="PublishContent" rows="6" placeholder="请输入内容"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- 人员 -->
+                <div class="panel panel-default">
+                    <input type="hidden" id="Peopleid" />
+                    <div class="panel-heading">
+                        <h4 class="pull-left">人员</h4>
+                        <button type="button" class="btn btn-success pull-right tianjia" tag="1" data-toggle="modal" data-target="#myModalPeople"> + 添加</button>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <table class="table table-striped table-hover">
+                                <tr>
+                                    <th>姓名</th>
+                                    <th>手机号</th>
+                                    <th>临时证卡</th>
+                                    <th>操作</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- 车辆 -->
+                <div class="panel panel-default">
+                    <input type="hidden" id="Carid" />
+                    <div class="panel-heading">
+                        <h4 class="pull-left">车辆</h4>
+                        <button type="button" class="btn btn-success pull-right tianjia" tag="2" data-toggle="modal" data-target="#myModalCar"> + 添加</button>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <table class="table table-striped table-hover">
+                                <tr>
+                                    <th>车牌</th>
+                                    <th>车型</th>
+                                    <th>操作</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- 物品 -->
+                <div class="panel panel-default">
+                    <input type="hidden" id="Productid" />
+                    <div class="panel-heading">
+                        <h4 class="pull-left">物品</h4>
+                        <button type="button" class="btn btn-success pull-right tianjia" tag="3" data-toggle="modal" data-target="#myModalProduct"> + 添加</button>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <table class="table table-striped table-hover">
+                                <tr>
+                                    <th>物品名称</th>
+                                    <th>物品简述</th>
+                                    <th>物品数量</th>
+                                    <th>操作</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 text-center">
+        <button type="button" id="btnzong" class="btn btn-info">确认提交</button>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<!-- 人员选择框 -->
+<div class="modal fade" id="myModalPeople" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">人员选择</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">姓名</label>
+                            <input type="email" class="form-control" id="PeopleName" placeholder="来访人员姓名">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">手机号</label>
+                            <input type="text" class="form-control" id="PeoplePhone" placeholder="来访人员手机号">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">证件号</label>
+                            <select class="form-control" id="PeopleCertificates" ng-controller="ctl">
+                                <option value="">选择临时标签</option>
+                                @if (@ViewBag.RfidCodes != null)
+                                {
+                                    foreach (MinHangWisdomParkWeb.Models.mtRfidCode r in @ViewBag.RfidCodes as List<MinHangWisdomParkWeb.Models.mtRfidCode>)
+                                    {
+                                        <option value="@r.RfidCode">@r.RfidCode</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-info xixniqueren" tag="1">确认信息</button>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--车辆选择框 -->
+<div class="modal fade" id="myModalCar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">车辆选择</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">车牌</label>
+                            <input type="email" class="form-control" id="CarLicence" placeholder="来访车辆车牌号">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">车型</label>
+                            <input type="text" class="form-control" id="CarType" placeholder="来访车辆车型">
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-info xixniqueren" tag="2">确认信息</button>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--物品选择框 -->
+<div class="modal fade" id="myModalProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="quxiao">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">物品选择</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">物品名称</label>
+                            <input type="email" class="form-control" id="ProductName" placeholder="来访物品名称">
+                        </div>
+                        <div class="form-group">
+                            <label>物品简述</label>
+                            <input type="text" class="form-control" id="ProductGenera" placeholder="来访物品简要概括">
+                        </div>
+                        <div class="form-group">
+                            <label>物品数量</label>
+                            <input type="number" class="form-control" id="ProdutNumber" placeholder="来访物品数量" />
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-info xixniqueren" tag="3">确认信息</button>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div ng-controller="ctl">
+        Search:<input ng-model="query">
+        Sort by:<select ng-model="order">
+            <option value="AutoId">AutoId</option>
+            <option value="RfidCode">RfidCode</option>
+        </select>
+
+        <ul class="r">
+            <li ng-repeat="r in RfidCodes | filter:query | orderBy:order">
+                {{r.AutoId}}
+
+                {{r.RfidCode}}
+            </li>
+        </ul>
+    </div>*@
+
+<!--批准人选择框-->
+<div class="modal fade" id="myModalPiZhun" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">批准人选择</h4>
+                <ol class="breadcrumb pizhunrumb">
+                    <li><a href="#" tag="0" class="bmt" id="shou">园区</a></li>
+                </ol>
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="请输入业主名用于搜索...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default pinzhunrensuosou" tag="1" type="button"><i class="fa fa-search "></i></button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="请输入人名用于搜索...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default pinzhunrensuosou" tag="2" type="button"><i class="fa fa-search "></i></button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+
+                </div><!-- /.row -->
+
+            </div>
+            <div class="modal-body">
+                <div class="page-header">
+                    <h3>选择部门</h3>
+                </div>
+                <div class="row bumen">
+                </div>
+                <div class="page-header">
+                    <h3>选择人员</h3>
+                </div>
+                <div class="row renyuan">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/ViewScripts/BusinessApplication-Linshi.js"></script>
+<script src="~/Scripts/AngularJS.js"></script>
+<script type="text/javascript">
+    function ctl($scope, $http) {
+        $http.post('@Url.Content("~/BusinessApplication/RfidCodeJson")').success(function (data) {
+            $scope.persons = data;
+        })
+        $scope.order = "AutoId";
+    }
+
+</script>

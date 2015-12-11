@@ -1,0 +1,898 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active"><a href="#zhika" data-toggle="tab">人员制卡</a></li>
+            <li><a href="#zhengka" data-toggle="tab">证卡挂失</a></li>
+            @*<li><a href="#News" data-toggle="tab">网上报修</a></li>*@
+            <li><a href="#SettledEnterprises" data-toggle="tab">入驻企业</a></li>
+            <li><a href="#Construction" data-toggle="tab">建设施工</a></li>
+        </ul>
+
+        <div id="myTabContent" class="tab-content">
+            <!--人员制卡-->
+            <div class="tab-pane fade in active" id="zhika">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="搜索..." />
+                    <span class="input-group-btn">
+                        <button type='submit' name='search' id='search-btn-zhika' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+                <p>
+                    <table class="table table-striped table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>申请标题</th>
+                                <th>申请数量</th>
+                                <th>申请时间</th>
+                                <th>申请状态</th>
+                                <th>审核人</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.BuniessList4 != null)
+                            {
+                                foreach (MinHangWisdomParkWeb.Controllers.BuniessAll a in ViewBag.BuniessList4 as List<MinHangWisdomParkWeb.Controllers.BuniessAll>)
+                                {
+                                    string[] strs = a.BuniessContent.Split(new string[] { "|+|" }, StringSplitOptions.RemoveEmptyEntries);
+                                    if (strs.Length >= 2)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <button type="button" class="btn btn-link buniesstitle" data-toggle="modal" data-target="#ModelBuniess4" tag="@a.BuniessID">
+                                                    @strs[0]
+                                                </button>
+                                            </td>
+                                            <td>@strs[2]</td>
+                                            <td>@a.BuniessTime</td>
+                                            <td><button type="button" class="btn btn-link confirmertitle" data-toggle="modal" data-target="#confirmer" tag="@a.BuniessID.Split('|')[1]">@a.StateName</button></td>
+                                            <td>@a.ConfimeName</td>
+                                        </tr>
+                                    }
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </p>
+                <div class="row pull-right">
+                    <nav class="text-center">
+                        @*分页*@
+                        <ul class="pagination" tag="zhikanav">
+                            <li>
+                                <a href="#" aria-label="Previous" id="zhikashang">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" aria-label="Next" id="zhikaxia">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!--证卡挂失-->
+            <div class="tab-pane fade" id="zhengka">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="搜索..." />
+                    <span class="input-group-btn">
+                        <button type='submit' name='search' id='search-btn-zhengka' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+                <p>
+                    <table class="table table-striped table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>申请标题</th>
+                                <th>申请时间</th>
+                                <th>申请状态</th>
+                                <th>审核人</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.BuniessList5 != null)
+                            {
+                                foreach (MinHangWisdomParkWeb.Controllers.BuniessAll a in ViewBag.BuniessList5 as List<MinHangWisdomParkWeb.Controllers.BuniessAll>)
+                                {
+                                    string[] strs = a.BuniessContent.Split(new string[] { "|+|" }, StringSplitOptions.RemoveEmptyEntries);
+                                    if (strs.Length == 2)
+                                    {
+                                        <tr>
+                                            <td><button type="button" class="btn btn-link buniesstitle" data-toggle="modal" data-target="#ModelBuniess4" tag="@a.BuniessID">@strs[0]</button></td>
+                                            <td>@a.BuniessTime</td>
+                                            <td><button type="button" class="btn btn-link confirmertitle" data-toggle="modal" data-target="#confirmer" tag="@a.BuniessID.Split('|')[1]">@a.StateName</button></td>
+                                            <td>@a.ConfimeName</td>
+                                        </tr>
+                                    }
+
+                                }
+                            }
+                        </tbody>
+
+                    </table>
+
+                </p>
+                <div class="row pull-right">
+                    <nav class="text-center">
+                        @*分页*@
+                        <ul class="pagination" tag="zhengkanav">
+                            <li>
+                                <a href="#" aria-label="Previous" id="zhengkashang">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" aria-label="Next" id="zhengkaxia">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+            <!--网上报修-->
+            <div class="tab-pane fade" id="News">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="搜索..." />
+                    <span class="input-group-btn">
+                        <button type='submit' name='search' id='search-btn-repair' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+                <p>
+                    <table class="table table-striped table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>申请类别</th>
+                                <th>申请标题</th>
+                                <th>申请时间</th>
+                                <th>审核状态</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.ApplyList != null)
+                            {
+                                foreach (MinHangWisdomParkWeb.Controllers.ApplyStateListJian a in ViewBag.ApplyList as List<MinHangWisdomParkWeb.Controllers.ApplyStateListJian>)
+                                {
+                                    <tr>
+                                        <td>@a.TypeName</td>
+                                        <td><button type="button" class="btn btn-link repairtitle" data-toggle="modal" data-target="#ModelRepair" tag="@a.RepairID">@a.RepairTitle</button></td>
+                                        <td>@a.Time</td>
+                                        <td>@a.StateName</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </p>
+                <div class="row pull-right">
+                    <nav class="text-center">
+                        @*分页*@
+                        <ul class="pagination" tag="repairnav">
+                            <li>
+                                <a href="#" aria-label="Previous" id="repairshang">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" aria-label="Next" id="repairxia">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+            <!--入驻企业-->
+            <div class="tab-pane fade" id="SettledEnterprises">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="搜索..." />
+                    <span class="input-group-btn">
+                        <button type='submit' name='search' id='search-btn-SettledEnterprises' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+                <p>
+                    <table class="table table-striped table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>申请标题</th>
+                                <th>申请时间</th>
+                                <th>审核状态</th>
+                                <th>审核者</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.BuniessList6 != null)
+                            {
+                                foreach (MinHangWisdomParkWeb.Controllers.BuniessAll a in ViewBag.BuniessList6 as List<MinHangWisdomParkWeb.Controllers.BuniessAll>)
+                                {
+                                    string[] strs = a.BuniessContent.Split(new string[] { "|+|" }, StringSplitOptions.RemoveEmptyEntries);
+                                    if (strs.Length == 2)
+                                    {
+                                        <tr>
+                                            <td><button type="button" class="btn btn-link buniesstitle" data-toggle="modal" data-target="#ModelBuniess4" tag="@a.BuniessID">@strs[0]</button></td>
+                                            <td>@a.BuniessTime</td>
+                                            <td><button type="button" class="btn btn-link confirmertitle" data-toggle="modal" data-target="#confirmer" tag="@a.BuniessID.Split('|')[1]">@a.StateName</button></td>
+                                            <td>@a.ConfimeName</td>
+                                        </tr>
+                                    }
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </p>
+                <div class="row pull-right">
+                    <nav class="text-center">
+                        @*分页*@
+                        <ul class="pagination" tag="SettledEnterprisesnav">
+                            <li>
+                                <a href="#" aria-label="Previous" id="SettledEnterprisesshang">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" aria-label="Next" id="SettledEnterprisesxia">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+            <!--建设施工-->
+            <div class="tab-pane fade" id="Construction">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="搜索..." />
+                    <span class="input-group-btn">
+                        <button type='submit' name='search' id='search-btn-Construction' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+                <p>
+                    <table class="table table-striped table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>申请标题</th>
+                                <th>申请时间</th>
+                                <th>审核状态</th>
+                                <th>审核者</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.BuniessList7 != null)
+                            {
+                                foreach (MinHangWisdomParkWeb.Controllers.BuniessAll a in ViewBag.BuniessList7 as List<MinHangWisdomParkWeb.Controllers.BuniessAll>)
+                                {
+                                    string[] strs = a.BuniessContent.Split(new string[] { "|+|" }, StringSplitOptions.RemoveEmptyEntries);
+                                    if (strs.Length == 2)
+                                    {
+                                        <tr>
+                                            <td><button type="button" class="btn btn-link buniesstitle" data-toggle="modal" data-target="#ModelBuniess4" tag="@a.BuniessID">@strs[0]</button></td>
+                                            <td>@a.BuniessTime</td>
+                                            <td><button type="button" class="btn btn-link confirmertitle" data-toggle="modal" data-target="#confirmer" tag="@a.BuniessID.Split('|')[1]">@a.StateName</button></td>
+                                            <td>@a.ConfimeName</td>
+                                        </tr>
+                                    }
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </p>
+                <div class="row pull-right">
+                    <nav class="text-center">
+                        @*分页*@
+                        <ul class="pagination" tag="Constructionnav">
+                            <li>
+                                <a href="#" aria-label="Previous" id="Constructionshang">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" aria-label="Next" id="Constructionxia">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<!--网上报修-->
+<div class="modal fade" id="ModelRepair" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--人员制卡-->
+<div class="modal fade" id="ModelBuniess4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--查看审核流-->
+<div class="modal fade" id="confirmer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<input type="hidden" value="@ViewBag.RepairNumber" id="RepairNumber" />
+<input type="hidden" value="@ViewBag.BuniessNumber4" id="ZhiKaNumber" />
+<input type="hidden" value="@ViewBag.BuniessNumber5" id="ZhengKaNumber" />
+<input type="hidden" value="@ViewBag.BuniessNumber6" id="SettledEnterprisesNumber" />
+<input type="hidden" value="@ViewBag.BuniessNumber7" id="ConstructionNumber" />
+<script type="text/javascript">
+    var countrepair = $('#RepairNumber').val();
+    var countzhengka = $('#ZhengKaNumber').val();
+    var countzhika = $('#RepairNumber').val();
+    var countSettledEnterprises = $("#SettledEnterprisesNumber").val();
+    var countConstruction = $('#ConstructionNumber').val();
+    var nums = 10;
+    $(function () {
+        counts();
+    })
+
+    function counts() {
+        var strrepair = '';
+        var strzhengka = '';
+        var strzhika = '';
+        var strSettledEnterprises = '';
+        var strConstruction = '';
+        for (var i = 1; i <= 5; i++) {
+            if (i == 1) {
+                strrepair += '<li class="active num"><a href="#">' + i + '</a></li>';
+            } else if (i <= countrepair) {
+                strrepair += '<li class="num"><a href="#">' + i + '</a></li>';
+            }
+        }
+
+        for (var i = 1; i <= 5; i++) {
+            if (i == 1) {
+                strzhengka += '<li class="active num"><a href="#">' + i + '</a></li>';
+            } else if (i <= countzhengka) {
+                strzhengka += '<li class="num"><a href="#">' + i + '</a></li>';
+            }
+        }
+        for (var i = 1; i < 5; i++) {
+            if (i == 1) {
+                strzhika += '<li class="active num"><a href="#">' + i + '</a></li>';
+            } else if (i <= countzhika) {
+                strzhika += '<li class="num"><a href="#">' + i + '</a></li>';
+            }
+        }
+        for (var i = 1; i < 5; i++) {
+            if (i == 1) {
+                strSettledEnterprises += '<li class="active num"><a href="#">' + i + '</a></li>';
+            } else if (i <= countSettledEnterprises) {
+                strSettledEnterprises += '<li class="num"><a href="#">' + i + '</a></li>';
+            }
+        }
+        for (var i = 1; i < 5; i++) {
+            if (i == 1) {
+                strConstruction += '<li class="active num"><a href="#">' + i + '</a></li>';
+            } else if (i <= countConstruction) {
+                strConstruction += '<li class="num"><a href="#">' + i + '</a></li>';
+            }
+        }
+
+        $('#repairshang').parent().after(strrepair);
+        $('#zhengkashang').parent().after(strzhengka);
+        $('#zhikashang').parent().after(strzhika);
+        $('#SettledEnterprisesshang').parent().after(strSettledEnterprises);
+        $('#Constructionshang').parent().after(strConstruction);
+    }
+
+
+    //点击翻页
+    $(document).on("click", ".num", function () {
+        var id = $(this).parent().attr("tag");
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+        switch (id) {
+            case 'repairnav':
+                var chaxun = $.trim($("#search-btn-repair").parent().prev().val().replace(/\s+/g, " "));
+                SelectRepairAll("SelectRepairAllAjax", chaxun, ($(this).text() - 1), nums);
+                break;
+            case 'zhengkanav':
+                var chaxun = $.trim($("#search-btn-zhengka").parent().prev().val().replace(/\s+/g, " "));
+                SelectBuniessAll("SelectBuniessAllAjax", chaxun, ($(this).text() - 1), nums, "zhengka");
+                break;
+            case 'zhikanav':
+                var chaxun = $.trim($("#search-btn-zhika").parent().prev().val().replace(/\s+/g, " "));
+                SelectBuniessAll("SelectBuniessAllAjax", chaxun, ($(this).text() - 1), nums, "zhika");
+                break;
+            case 'SettledEnterprises':
+                var chaxun = $.trim($("#search-btn-SettledEnterprises").parent().prev().val().replace(/\s+/g, " "));
+                SelectBuniessAll("SelectBuniessAllAjax", chaxun, ($(this).text() - 1), nums, "SettledEnterprises");
+                break;
+            case 'Construction':
+                var chaxun = $.trim($("#search-btn-Construction").parent().prev().val().replace(/\s+/g, " "));
+                SelectBuniessAll("SelectBuniessAllAjax", chaxun, ($(this).text() - 1), nums, "Construction");
+                break;
+
+        }
+    })
+
+    //人员制卡前翻
+    $("#zhikashang").click(function () {
+        var num = $(this).parent().parent().find(".active");
+        if (num.text() != '1') {
+            if (num.prev().find("span").text() != "«") {
+                num.removeClass("active");
+                num.prev().addClass("active");
+                var chaxun = $.trim($("#search-btn-zhika").parent().prev().val().replace(/\s+/g, " "));
+                SelectBuniessAll("SelectBuniessAllAjax", chaxun, (num.prev().text() - 1), nums, "zhika");
+            } else if (num.prev().find("span").text() == "«") {
+                num.parent().find('.num').remove();
+                var i = 5;
+                var str = '';
+                for (var i; i >= 1; i--) {
+                    if (i == 1) {
+                        str += '<li class="active num"><a href="#">' + (Number(num.text()) - i) + '</a></li>';
+                        var chaxun = $.trim($("#search-btn-zhika").parent().prev().val().replace(/\s+/g, " "));
+                        SelectBuniessAll("SelectBuniessAllAjax", chaxun, ((Number(num.text()) - i) - 1), nums, "zhika");
+                    } else {
+                        str += '<li class="num"><a href="#">' + (Number(num.text()) - i) + '</a></li>'
+                    }
+                }
+                $(this).parent().after(str);
+            }
+        }
+    })
+
+    $("#zhikaxia").click(function () {
+        var num = $(this).parent().parent().find(".active");
+        if (num.text() != countrepair) {
+            if (num.next().find("span").text() != "»") {
+                num.removeClass("active");
+                num.next().addClass("active");
+                var chaxun = $.trim($("#search-btn-zhika").parent().prev().val().replace(/\s+/g, " "));
+                SelectBuniessAll("SelectBuniessAllAjax", chaxun, (num.next().text() - 1), nums, "zhika");
+            } else if (num.next().find('span').text() == "»") {
+                num.parent().find('.num').remove();
+                var i = 1;
+                var str = '';
+                for (var i; i <= 5; i++) {
+                    if (i == 1) {
+                        str += '<li class="active num"><a href="#">' + (Number(num.text()) + i) + '</a></li>';
+                        var chaxun = $.trim($("#search-btn-zhika").parent().prev().val().replace(/\s+/g, " "));
+                        SelectBuniessAll("SelectBuniessAllAjax", chaxun, ((Number(num.text()) - i) - 1), nums, "zhika");
+                    } else if ((Number(num.text()) + i) <= countrepair) {
+                        str += '<li class="num"><a href="#">' + (Number(num.text()) + i) + '</a></li>'
+                    }
+                }
+                $('#zhikashang').parent().after(str);
+            }
+        }
+    })
+
+    //证卡挂失前翻
+    $("#zhengkashang").click(function () {
+        var num = $(this).parent().parent().find(".active");
+        if (num.text() != '1') {
+            if (num.prev().find("span").text() != "«") {
+                num.removeClass("active");
+                num.prev().addClass("active");
+                var chaxun = $.trim($("#search-btn-zhengka").parent().prev().val().replace(/\s+/g, " "));
+                SelectBuniessAll("SelectBuniessAllAjax", chaxun, (num.prev().text() - 1), nums, "zhengka");
+            } else if (num.prev().find("span").text() == "«") {
+                num.parent().find('.num').remove();
+                var i = 5;
+                var str = '';
+                for (var i; i >= 1; i--) {
+                    if (i == 1) {
+                        str += '<li class="active num"><a href="#">' + (Number(num.text()) - i) + '</a></li>';
+                        var chaxun = $.trim($("#search-btn-zhengka").parent().prev().val().replace(/\s+/g, " "));
+                        SelectBuniessAll("SelectBuniessAllAjax", chaxun, ((Number(num.text()) - i) - 1), nums, "zhengka");
+                    } else {
+                        str += '<li class="num"><a href="#">' + (Number(num.text()) - i) + '</a></li>'
+                    }
+                }
+                $(this).parent().after(str);
+            }
+        }
+    })
+
+    $("#zhengkaxia").click(function () {
+        var num = $(this).parent().parent().find(".active");
+        if (num.text() != countrepair) {
+            if (num.next().find("span").text() != "»") {
+                num.removeClass("active");
+                num.next().addClass("active");
+                var chaxun = $.trim($("#search-btn-zhengka").parent().prev().val().replace(/\s+/g, " "));
+                SelectBuniessAll("SelectBuniessAllAjax", chaxun, (num.next().text() - 1), nums, "zhengka");
+            } else if (num.next().find('span').text() == "»") {
+                num.parent().find('.num').remove();
+                var i = 1;
+                var str = '';
+                for (var i; i <= 5; i++) {
+                    if (i == 1) {
+                        str += '<li class="active num"><a href="#">' + (Number(num.text()) + i) + '</a></li>';
+                        var chaxun = $.trim($("#search-btn-zhengka").parent().prev().val().replace(/\s+/g, " "));
+                        SelectBuniessAll("SelectBuniessAllAjax", chaxun, ((Number(num.text()) - i) - 1), nums, "zhengka");
+                    } else if ((Number(num.text()) + i) <= countrepair) {
+                        str += '<li class="num"><a href="#">' + (Number(num.text()) + i) + '</a></li>'
+                    }
+                }
+                $('#zhengkashang').parent().after(str);
+            }
+        }
+    })
+
+    //入驻企业
+    $("#SettledEnterprisesshang").click(function () {
+        var num = $(this).parent().parent().find(".active");
+        if (num.text() != '1') {
+            if (num.prev().find("span").text() != "«") {
+                num.removeClass("active");
+                num.prev().addClass("active");
+                var chaxun = $.trim($("#search-btn-SettledEnterprises").parent().prev().val().replace(/\s+/g, " "));
+                SelectBuniessAll("SelectBuniessAllAjax", chaxun, (num.prev().text() - 1), nums, "SettledEnterprises");
+            } else if (num.prev().find("span").text() == "«") {
+                num.parent().find('.num').remove();
+                var i = 5;
+                var str = '';
+                for (var i; i >= 1; i--) {
+                    if (i == 1) {
+                        str += '<li class="active num"><a href="#">' + (Number(num.text()) - i) + '</a></li>';
+                        var chaxun = $.trim($("#search-btn-SettledEnterprises").parent().prev().val().replace(/\s+/g, " "));
+                        SelectBuniessAll("SelectBuniessAllAjax", chaxun, ((Number(num.text()) - i) - 1), nums, "SettledEnterprises");
+                    } else {
+                        str += '<li class="num"><a href="#">' + (Number(num.text()) - i) + '</a></li>'
+                    }
+                }
+                $(this).parent().after(str);
+            }
+        }
+    })
+
+    $("#SettledEnterprisesxia").click(function () {
+        var num = $(this).parent().parent().find(".active");
+        if (num.text() != countrepair) {
+            if (num.next().find("span").text() != "»") {
+                num.removeClass("active");
+                num.next().addClass("active");
+                var chaxun = $.trim($("#search-btn-SettledEnterprises").parent().prev().val().replace(/\s+/g, " "));
+                SelectBuniessAll("SelectBuniessAllAjax", chaxun, (num.next().text() - 1), nums, "SettledEnterprises");
+            } else if (num.next().find('span').text() == "»") {
+                num.parent().find('.num').remove();
+                var i = 1;
+                var str = '';
+                for (var i; i <= 5; i++) {
+                    if (i == 1) {
+                        str += '<li class="active num"><a href="#">' + (Number(num.text()) + i) + '</a></li>';
+                        var chaxun = $.trim($("#search-btn-SettledEnterprises").parent().prev().val().replace(/\s+/g, " "));
+                        SelectBuniessAll("SelectBuniessAllAjax", chaxun, ((Number(num.text()) - i) - 1), nums, "SettledEnterprises");
+                    } else if ((Number(num.text()) + i) <= countrepair) {
+                        str += '<li class="num"><a href="#">' + (Number(num.text()) + i) + '</a></li>'
+                    }
+                }
+                $('#SettledEnterprisesshang').parent().after(str);
+            }
+        }
+    })
+
+    //建设施工
+    $("#Constructionshang").click(function () {
+        var num = $(this).parent().parent().find(".active");
+        if (num.text() != '1') {
+            if (num.prev().find("span").text() != "«") {
+                num.removeClass("active");
+                num.prev().addClass("active");
+                var chaxun = $.trim($("#search-btn-Construction").parent().prev().val().replace(/\s+/g, " "));
+                SelectBuniessAll("SelectBuniessAllAjax", chaxun, (num.prev().text() - 1), nums, "Construction");
+            } else if (num.prev().find("span").text() == "«") {
+                num.parent().find('.num').remove();
+                var i = 5;
+                var str = '';
+                for (var i; i >= 1; i--) {
+                    if (i == 1) {
+                        str += '<li class="active num"><a href="#">' + (Number(num.text()) - i) + '</a></li>';
+                        var chaxun = $.trim($("#search-btn-Construction").parent().prev().val().replace(/\s+/g, " "));
+                        SelectBuniessAll("SelectBuniessAllAjax", chaxun, ((Number(num.text()) - i) - 1), nums, "Construction");
+                    } else {
+                        str += '<li class="num"><a href="#">' + (Number(num.text()) - i) + '</a></li>'
+                    }
+                }
+                $(this).parent().after(str);
+            }
+        }
+    })
+
+    $("#Constructionxia").click(function () {
+        var num = $(this).parent().parent().find(".active");
+        if (num.text() != countrepair) {
+            if (num.next().find("span").text() != "»") {
+                num.removeClass("active");
+                num.next().addClass("active");
+                var chaxun = $.trim($("#search-btn-Construction").parent().prev().val().replace(/\s+/g, " "));
+                SelectBuniessAll("SelectBuniessAllAjax", chaxun, (num.next().text() - 1), nums, "Construction");
+            } else if (num.next().find('span').text() == "»") {
+                num.parent().find('.num').remove();
+                var i = 1;
+                var str = '';
+                for (var i; i <= 5; i++) {
+                    if (i == 1) {
+                        str += '<li class="active num"><a href="#">' + (Number(num.text()) + i) + '</a></li>';
+                        var chaxun = $.trim($("#search-btn-Construction").parent().prev().val().replace(/\s+/g, " "));
+                        SelectBuniessAll("SelectBuniessAllAjax", chaxun, ((Number(num.text()) - i) - 1), nums, "Construction");
+                    } else if ((Number(num.text()) + i) <= countrepair) {
+                        str += '<li class="num"><a href="#">' + (Number(num.text()) + i) + '</a></li>'
+                    }
+                }
+                $('#Constructionshang').parent().after(str);
+            }
+        }
+    })
+
+
+    //网上报修前翻
+    $("#repairshang").click(function () {
+        var num = $(this).parent().parent().find(".active");
+        var typename = $('#TypeName').val();
+        if (num.text() != '1') {
+            if (num.prev().find("span").text() != "«") {
+                num.removeClass("active");
+                num.prev().addClass("active");
+                var chaxun = $.trim($("#search-btn-repair").parent().prev().val().replace(/\s+/g, " "));
+                SelectRepairAll("SelectRepairAllAjax", chaxun, (num.prev().text() - 1), nums);
+            } else if (num.prev().find("span").text() == "«") {
+                num.parent().find('.num').remove();
+                var i = 5;
+                var str = '';
+                for (var i; i >= 1; i--) {
+                    if (i == 1) {
+                        str += '<li class="active num"><a href="#">' + (Number(num.text()) - i) + '</a></li>';
+                        var chaxun = $.trim($("#search-btn-repair").parent().prev().val().replace(/\s+/g, " "));
+                        SelectRepairAll("SelectRepairAllAjax", chaxun, ((Number(num.text()) - i) - 1), nums);
+
+                    } else {
+                        str += '<li class="num"><a href="#">' + (Number(num.text()) - i) + '</a></li>'
+                    }
+                }
+                $(this).parent().after(str);
+            }
+        }
+    })
+
+    $("#repairxia").click(function () {
+        var num = $(this).parent().parent().find(".active");
+        if (num.text() != countrepair) {
+            if (num.next().find("span").text() != "»") {
+                num.removeClass("active");
+                num.next().addClass("active");
+                var typename = $('#TypeName').val();
+                var chaxun = $.trim($("#search-btn-repair").parent().prev().val().replace(/\s+/g, " "));
+                SelectRepairAll("SelectRepairAllAjax", chaxun, (num.next().text() - 1), nums);
+            } else if (num.next().find('span').text() == "»") {
+                num.parent().find('.num').remove();
+                var i = 1;
+                var str = '';
+                for (var i; i <= 5; i++) {
+                    if (i == 1) {
+                        str += '<li class="active num"><a href="#">' + (Number(num.text()) + i) + '</a></li>';
+                        var chaxun = $.trim($("#search-btn-repair").parent().prev().val().replace(/\s+/g, " "));
+                        SelectRepairAll("SelectRepairAllAjax", chaxun, ((Number(num.text()) - i) - 1), nums);
+                    } else if ((Number(num.text()) + i) <= countrepair) {
+                        str += '<li class="num"><a href="#">' + (Number(num.text()) + i) + '</a></li>'
+                    }
+                }
+                $('#repairshang').parent().after(str);
+            }
+        }
+    })
+
+
+    //网上报修查看详情
+    $(document).on("click", ".repairtitle", function () {
+        var id = $(this).attr("tag");
+        $.post("SelectRepairByIdAjax", { id: id }, function (data, status) {
+            if (status == "success") {
+                $("#ModelRepair").find('.myModalLabel').text(data.RepairTitle);
+                $("#ModelRepair").find('.modal-body').text(data.RepairContent);
+            }
+        })
+    })
+
+    //其他业务查看详情
+    $(document).on("click", ".buniesstitle", function () {
+        var id = $(this).attr("tag");
+        var buniessid = id.split('|')[0];
+        $.post("SelectBuniessByIdAjax", { id: buniessid }, function (data, status) {
+            if (status == "success") {
+                var strss = data.BuniessContent.split('|+|');
+                var strtile = '';
+                var strcontent = '';
+                if (strss.length == 2) {
+                    strtile = strss[0];
+                    strcontent = strss[1];
+                } else if (strss.length == 3) {
+                    strtile = strss[0];
+                    strcontent = strss[1] + '<br /> 数量：' + strss[2];
+                }
+
+                $("#ModelBuniess4").find('.myModalLabel').html(strtile);
+                $("#ModelBuniess4").find('.modal-body').html(strcontent);
+            }
+        })
+    })
+
+
+    ///提取审核流数据
+    $(document).on('click', '.confirmertitle', function () {
+        var id = $(this).attr("tag");
+        $.post("SelectConfirmerMenoFlowByApplyid", { applyid: id }, function (data, status) {
+            if (status == "success") {
+                var str = '<table class="table table-hover"><tr><th>审核人</th><th>审核意见</th><th>审核状态</th></tr>';
+                $.each(data, function (i, item) {
+                    var state = '';
+                    switch (item.State) {
+                        case 1: state = '已通过'; break;
+                        case 2: state = '审核中'; break;
+                        case 3: state = '未审核'; break;
+                        case 4: state = '未通过'; break;
+                    }
+                    str += '<tr><td>' + item.UserName + '</td><td>' + item.ConfirmeMeno + '</td><td>' + state + '</td></tr>';
+                })
+                str += '</table>';
+                $("#confirmer").find('.modal-body').html(str);
+            }
+        })
+    })
+
+
+    //网上报修查询
+    $("#search-btn-repair").click(function () {
+        var str = $.trim($(this).parent().prev().val().replace(/\s+/g, " "));
+        SelectRepairAll("SelectRepairAllAjax", str, 0, nums);
+    })
+
+    //证卡挂失查询
+    $("#search-btn-zhengka").click(function () {
+        var str = $.trim($(this).parent().prev().val().replace(/\s+/g, " "));
+        var buniesstype = $(this).parent().parent().parent().attr("id");
+        SelectBuniessAll("SelectBuniessAllAjax", str, 0, nums, buniesstype);
+    })
+
+    //人员制卡查询
+    $("#search-btn-zhika").click(function () {
+        var str = $.trim($(this).parent().prev().val().replace(/\s+/g, " "));
+        var buniesstype = $(this).parent().parent().parent().attr("id");
+        SelectBuniessAll("SelectBuniessAllAjax", str, 0, nums, buniesstype);
+    })
+
+    //入驻企业
+    $("#search-btn-SettledEnterprises").click(function () {
+        var str = $.trim($(this).parent().prev().val().replace(/\s+/g, " "));
+        var buniesstype = $(this).parent().parent().parent().attr("id");
+        SelectBuniessAll("SelectBuniessAllAjax", str, 0, nums, buniesstype);
+    })
+
+    //建设施工
+    $("#search-btn-Construction").click(function () {
+        var str = $.trim($(this).parent().prev().val().replace(/\s+/g, " "));
+        var buniesstype = $(this).parent().parent().parent().attr("id");
+        SelectBuniessAll("SelectBuniessAllAjax", str, 0, nums, buniesstype);
+    })
+
+    //业务多条件查询  有分页
+    function SelectBuniessAll(url, str, pageindex, number, buniesstype) {
+        var type;
+        if (buniesstype == "zhengka") {
+            type = 5;
+        } else if (buniesstype == "zhika") {
+            type = 4;
+        } else if (buniesstype == "SettledEnterprises") {
+            type = 6;
+        } else if (buniesstype == "Construction") {
+            type = 7;
+        }
+
+        $("#" + buniesstype).find("tbody").empty();
+
+        $.post(url, { str: str, pageindex: pageindex, number: number, buniesstype: type }, function (data, status) {
+            if (status == "success") {
+                var strs = '';
+                $.each(data, function (i, item) {
+                    var time = timeStamp2String(item.BuniessTime);
+                    var strss = item.BuniessContent.split('|+|');
+                    var aid = item.BuniessID.split('|')[1].trim();
+                    if (strss.length == 2) {
+                        strs += '<tr>' +
+                           '<td><button type="button" class="btn btn-link buniesstitle" data-toggle="modal" data-target="#ModelBuniess4" tag="' + item.BuniessID + '">' + strss[0] + '</button></td>' +
+                           ' <td>' + time + '</td>' +
+                           ' <td><button type="button" class="btn btn-link confirmertitle" data-toggle="modal" data-target="#confirmer" tag="' + aid + '">' + item.StateName + '</button></td>' +
+                           '<td>' + item.ConfimeName + '</td>' +
+                           '</tr>';
+                    }
+                    if (strss.length == 3) {
+                        strs += '<tr>' +
+                         '<td><button type="button" class="btn btn-link buniesstitle" data-toggle="modal" data-target="#ModelBuniess4" tag="' + item.BuniessID + '">' + strss[0] + '</button></td>' +
+                         ' <td>' + strss[2] + '</td>' +
+                         ' <td>' + time + '</td>' +
+                         ' <td><button type="button" class="btn btn-link confirmertitle" data-toggle="modal" data-target="#confirmer" tag="' + aid + '">' + item.StateName + '</button></td>' +
+                         '<td>' + item.ConfimeName + '</td>' +
+                         '</tr>';
+                    }
+                })
+
+                $("#" + buniesstype).find("tbody").append(strs);
+
+
+            }
+        });
+
+    }
+
+    //网上报修多条件查询 有分页
+    function SelectRepairAll(url, str, pageindex, number) {
+        $("#News").find("tbody").empty();
+        $.post(url, { str: str, pageindex: pageindex, number: number }, function (data, status) {
+            if (status == "success") {
+                var strs = '';
+                $.each(data, function (i, item) {
+                    var time = timeStamp2String(item.Time);
+                    strs += '<tr> <td>' + item.TypeName + '</td> <td><button type="button" class="btn btn-link repairtitle" data-toggle="modal" data-target="#ModelRepair" tag="' + item.RepairID + '">' + item.RepairTitle + '</button></td><td>' + time + '</td> <td>' + item.StateName + '</td></tr>';
+                })
+                $("#News").find("tbody").append(strs);
+            }
+        })
+    }
+
+    //时间转换格式
+    function timeStamp2String(time) {
+        var time = eval(time.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"));
+        var datetime = new Date();
+        datetime.setTime(time);
+        var year = datetime.getFullYear();
+        var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+        var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+        var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
+        var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+        var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+        return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
+    }
+
+</script>

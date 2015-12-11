@@ -1,0 +1,93 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*搜索框*@
+<div class="row">
+    <div class="col-xs-2"></div>
+    <div class="col-xs-8">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="搜索..." />
+            <span class="input-group-btn">
+                <button type='submit' name='search' typename="yishenhe" typenumber="1" class="btn btn-flat search-btn"><i class="fa fa-search"></i></button>
+            </span>
+        </div>
+    </div>
+    <div class="col-xs-2"></div>
+</div>
+@*数据显示列表*@
+<div class="row">
+    <div class="col-xs-2"></div>
+    <div class="col-xs-8">
+        <table class="table table-striped table-hover text-center" id="table1">
+            <thead>
+                <tr>
+                    <th style="width:5%">类型</th>
+                    <th style="width:25%">申请标题</th>
+                    <th style="width:25%">申请时间</th>
+                    <th style="width:10%">申请人</th>
+                    <th style="width:15%">业主</th>
+                    <th style="width:10%">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.yishenhe != null)
+                {
+                    foreach (MinHangWisdomParkWeb.Controllers.ShenHe a in ViewBag.yishenhe as List<MinHangWisdomParkWeb.Controllers.ShenHe>)
+                    {
+                        <tr>
+                            <td>@a.typeid</td>
+                            <td>@a.Title</td>
+                            <td>@a.Time</td>
+                            <td>@a.Updater</td>
+                            <td>@a.ownerid</td>
+                            <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#modelxiangxi" typename="@a.typeid" applyid="@a.ApplyID" peblishid="@a.Content">查看详情</button></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <nav class="pull-right">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous" class="ListPrevious" id="paginpre1">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" aria-label="Next" class="ListNext">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-xs-2"></div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modelxiangxi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body" id="myModelContent">
+
+            </div>
+            <div class="modal-footer" tag="" id="mymodeltag">
+                <div class="row">
+                    <div class="col-md-12">
+                        <textarea class="form-control" rows="3" placeholder="请填写审核意见"></textarea>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-danger queren" tag="0">撤销发布</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="BuniessNumber1" value="@ViewBag.count" />
+<script src="~/ViewScripts/AuthorizationAudit-YiShenHe.js"></script>
+<script src="~/ViewScripts/fanye.js"></script>

@@ -1,0 +1,108 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .col-md-12 {
+        margin-top: 2em;
+    }
+
+    .table-bordered {
+        border: 1px solid black;
+        font-family: "Microsoft YaHei";
+    }
+</style>
+<div class="row" id="content">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12  text-center">
+                <div class="input-group">
+                    <div class="input-group-addon">请输入标题:</div>
+                    <input type="text" id="SEtext" class=" form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="summernote">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td style="width:15%">项目名称</td>
+                            <td style="width:50%"></td>
+                            <td style="width:15%">发函时间</td>
+                            <td style="width:20%"></td>
+                        </tr>
+                        <tr>
+                            <td>发函方</td>
+                            <td></td>
+                            <td>经办人</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>收函方</td>
+                            <td></td>
+                            <td>收函人</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>抄送</td>
+                            <td></td>
+                            <td>收函人</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>抄送</td>
+                            <td></td>
+                            <td>收函人</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>事由</td>
+                            <td colspan="3"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 text-center">
+        <button type="button" id="btnzong" class="btn btn-info">确认提交</button>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.summernote').summernote({
+            height: 300, // set editor height
+            minHeight: 300, // set minimum height of editor
+            focus: true, // set focus to editable area after initializing summernote
+            toolbar: [
+            //[groupname, [button list]]
+            ]
+        });
+    });
+
+    $('#btnzong').click(function () {
+        var title = $('#SEtext').val();
+        var content = $('.summernote').code();
+
+        content = encodeURI(content);
+        $.post("ConstructionAjax", { title: title, content: content, clientip: window.localStorage["ClientIp"] }, function (data, status) {
+            if (data.msg == "OK") {
+                alert("提交成功！");
+                $("#content").load(location.href + " #content>*", "");
+
+            } else {
+                alert("提交失败！");
+            }
+
+        })
+    })
+
+
+</script>

@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .row {
+        margin-top: 1em;
+    }
+</style>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">
+                <input type="text" class="form-control" id="PeblishTitle" placeholder="请输入标题">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12  text-center">
+                <div class="input-group">
+                    <div class="input-group-addon">请输入数量:</div>
+                    <input type="number" id="number" class=" form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <textarea class="form-control" id="PublishContent" rows="6" placeholder="请输入内容"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 text-center">
+        <button type="button" id="btnzong" class="btn btn-info">确认提交</button>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<script type="text/javascript">
+    $("#btnzong").click(function () {
+
+        var title = $("#PeblishTitle").val();
+        var number = $("#number").val();
+        var content = $("#PublishContent").val();
+
+        if (window.localStorage["ClientIp"] == null || window.localStorage["ClientIp"] == "") {
+            GetClientIp();
+        }
+
+        $.post("renyuanshenqin", { title: title, content: content, number: number, clientip: window.localStorage["ClientIp"] }, function (data, status) {
+            if (data.msg == "OK") {
+                alert("提交成功！");
+                $("#PeblishTitle").val('');
+                $("#number").val('');
+                $("#PublishContent").val('');
+            } else {
+                alert("提交失败！");
+            }
+
+        })
+    })
+</script>

@@ -1,0 +1,410 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .row, textarea {
+        margin-top: 1em;
+    }
+
+    .alert-dismissible {
+        display: inline-block;
+        padding-top: 0.3em;
+        padding-bottom: 0.55em;
+        margin-right: 0.3em;
+    }
+
+    .panel-heading {
+        height: 55px;
+    }
+
+    .panel-body {
+        padding: 0;
+    }
+
+
+    .modal-body {
+        padding: 0;
+    }
+
+    .modal-dialog {
+        width: 70%;
+        min-width: 700px;
+    }
+
+        .modal-dialog .modal-body {
+            height: 600px;
+            max-height: 600px;
+        }
+
+    .divtable {
+        width: 100%;
+        height: 92%;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    table {
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+
+</style>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-5 col-xs-6">
+                <select class="form-control selectval">
+                    <option value="-1">请选择进出类型</option>
+                    <option value="1">入园申请</option>
+                    <option value="2">出园申请</option>
+                </select>
+            </div>
+            <div class="col-md-7 col-xs-6  text-center">
+                <div class="input-group">
+                    <div class="input-group-addon">出入园区日期:</div>
+                    <input type="text" id="DateTime" value="@DateTime.Now" datetimeold="@DateTime.Now" readonly class=" form_datetime form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input type="text" class="form-control" id="PeblishTitle" placeholder="请输入标题">
+                <textarea class="form-control" id="PublishContent" rows="6" placeholder="请输入内容"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- 人员 -->
+                <div class="panel panel-default">
+                    <input type="hidden" id="Peopleid" />
+                    <div class="panel-heading">
+                        <h4 class="pull-left">人员</h4>
+                        <button type="button" class="btn btn-success pull-right tianjia" tag="1" data-toggle="modal" data-target="#myModalPeople"> + 添加</button>
+                    </div>
+                    <div class="panel-body">
+                        <div><table class="table table-striped table-hover"></table></div>
+                    </div>
+                </div>
+                <!-- 车辆 -->
+                <div class="panel panel-default">
+                    <input type="hidden" id="Carid" />
+                    <div class="panel-heading">
+                        <h4 class="pull-left">车辆</h4>
+                        <button type="button" class="btn btn-success pull-right tianjia" tag="2" data-toggle="modal" data-target="#myModalCar"> + 添加</button>
+                    </div>
+                    <div class="panel-body">
+                        <div><table class="table table-striped table-hover"></table></div>
+                    </div>
+                </div>
+                <!-- 物品 -->
+                <div class="panel panel-default">
+                    <input type="hidden" id="Productid" />
+                    <div class="panel-heading">
+                        <h4 class="pull-left">物品</h4>
+                        <button type="button" class="btn btn-success pull-right tianjia" tag="3" data-toggle="modal" data-target="#myModalProduct"> + 添加</button>
+                    </div>
+                    <div class="panel-body">
+                        <div><table class="table table-striped table-hover"></table></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 text-center">
+        <button type="button" id="btnzong" class="btn btn-info">确认提交</button>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+
+
+<!-- 人员选择框 -->
+<div class="modal fade" id="myModalPeople" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">人员选择</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control search" placeholder="搜索..." />
+                    <span class="input-group-btn">
+                        <button type='submit' name='search' id='search-btn-people' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+                <div class="divtable">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>性别</th>
+                                <th>电话</th>
+                                <th>所属项目</th>
+                                <th>年龄</th>
+                                <th>籍贯</th>
+                                <th>职务</th>
+                                <th>工作时间段</th>
+                                <th>特长</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--车辆选择框 -->
+<div class="modal fade" id="myModalCar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">车辆选择</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control search" placeholder="搜索..." />
+                    <span class="input-group-btn">
+                        <button type='submit' name='search' id='search-btn-car' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+                <div class="divtable">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>车牌号</th>
+                                <th>车型</th>
+                                <th>满载重量</th>
+                                <th>空载重量</th>
+                                <th>有效期</th>
+                                <th>常用驾驶员</th>
+                                <th>所属项目</th>
+                                <th>停车位置</th>
+                                <th>工作时间段</th>
+                                <th>特殊功能</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--物品选择框 -->
+<div class="modal fade" id="myModalProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">物品选择</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control search" placeholder="搜索..." />
+                    <span class="input-group-btn">
+                        <button type='submit' name='search' id='search-btn-product' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+                <div class="divtable">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>物品名称</th>
+                                <th>物品规格</th>
+                                <th>数量</th>
+                                <th>单位</th>
+                                <th>当前项目</th>
+                                <th>放置区域</th>
+                                <th>使用时间段</th>
+                                <th>特殊功能分类</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+
+    //初始化时间控件
+    $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
+
+    //获取url参数
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]); return null; //返回参数值
+    }
+
+    //点击添加按钮 弹出模态框 >>> 多条件 多关键字 查询
+    $(".tianjia").click(function () {
+
+        var tag = $(this).attr('tag');
+        var id = $(this).attr('data-target');
+        $(id).find('.search').val('');
+        var str = $.trim($(id).find('.search').val().replace(/\s+/g, " "));
+        if (tag == '1') {
+            SelectPeople(id, str, tag);
+        } else if (tag == '2') {
+            SelectCar(id, str, tag);
+        } else if (tag == '3') {
+            SelectProduct(id, str, tag);
+        }
+
+        //多条件查询
+        $(id).find('#search-btn-people').click(function () {
+            var str1 = $.trim($(id).find('.search').val().replace(/\s+/g, " "));
+            SelectPeople(id, str1, tag);
+        })
+
+        $(id).find('#search-btn-car').click(function () {
+            var str1 = $.trim($(id).find('.search').val().replace(/\s+/g, " "));
+            SelectCar(id, str1, tag);
+        })
+
+        $(id).find('#search-btn-product').click(function () {
+            var str1 = $.trim($(id).find('.search').val().replace(/\s+/g, " "));
+            SelectProduct(id, str1, tag);
+        })
+    })
+
+
+    //People数据
+    function SelectPeople(id, str, tag) {
+        $.post("PeopleCarItemMain/", { typeid: tag, str: str }, function (data, status) {
+            if (status == 'success') {
+                var str = '';
+                $.each(data, function (i, item) {
+                    str += '<tr><td>' + item.PeopleName + '</td>' +
+                        '<td>' + item.Sexy + '</td>' +
+                        '<td>' + item.PhoneNum + '</td>' +
+                        '<td>' + item.Position + '</td>' +
+                        '<td>' + item.Age + '</td>' +
+                        '<td>' + item.Native + '</td>' +
+                        '<td>' + item.CurrProject + '</td>' +
+                        '<td>' + item.JobPartTime + '</td>' +
+                        '<td>' + item.SkillItem + '</td><td><a class="btn btn-success xuanze" tag="' + item.PeopleID + '">选择</a></td></tr>';
+                })
+                $(id).find('tbody').empty().append(str);
+            }
+        })
+    }
+
+    //Car数据
+    function SelectCar(id, str, tag) {
+        $.post('Car/', { typeid: tag, str: str }, function (data, status) {
+            if (status == 'success') {
+                var str = '';
+                $.each(data, function (i, item) {
+                    str += '<tr><td>' + item.CarLicence + '</td>' +
+                        '<td>' + item.CarType + '</td>' +
+                        '<td>' + item.MaxWeight + '</td>' +
+                        '<td>' + item.MinWeight + '</td>' +
+                        '<td>' + item.ExpDate + '</td>' +
+                        '<td>' + item.Drivers + '</td>' +
+                        '<td>' + item.CurrProject + '</td>' +
+                        '<td>' + item.ParkSpace + '</td>' +
+                        '<td>' + item.JobPartTime + '</td>' +
+                        '<td>' + item.SkillItem + '</td><td><a class="btn btn-success xuanze" tag="' + item.CarID + '">选择</a></td></tr>';
+                })
+                $(id).find('tbody').empty().append(str);
+            }
+        })
+    }
+
+    //Product数据
+    function SelectProduct(id, str, tag) {
+        $.post('ProductCarItemMain', { typeid: tag, str: str }, function (data, status) {
+            if (status == 'success') {
+                var str = '';
+                $.each(data, function (i, item) {
+                    str += '<tr><td>' + item.ProductName + '</td>' +
+                        '<td>' + item.ProductSpec + '</td>' +
+                        '<td>' + item.ProductQuantity + '</td>' +
+                        '<td>' + item.ProductUnit + '</td>' +
+                        '<td>' + item.CurrProject + '</td>' +
+                        '<td>' + item.Space + '</td>' +
+                        '<td>' + item.JobPartTime + '</td>' +
+                        '<td>' + item.SkillItem + '</td><td><a class="btn btn-success xuanze" tag="' + item.CarID + '">选择</a></td></tr>';
+                })
+                $(id).find('tbody').empty().append(str);
+            }
+        })
+    }
+
+    //选择人车物添加到页面
+    $(document).on('click', '.xuanze', function () {
+        var ide = $(this).attr('tag');
+        var id = '#' + $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent().attr('id').replace('myModal', '') + 'id';
+        var ides = $.trim($(id).val()).split(' ');
+        for (var i = 0; i < ides.length; i++) {//判断是否已存在
+            if (ide == ides[i]) {
+                alert("已选择过！");
+                return false;
+            }
+        }
+        $(id).val($(id).val() + ' ' + ide);
+        var html = $(this).parent().parent().html();
+        html = html.replace('选择', '删除').replace('xuanze', 'shanchu').replace('success', 'warning');
+        $(id).parent().find('table').append('<tr>' + html + '</tr>');
+
+        $(this).parent().parent().remove();
+
+    })
+
+    //删除已选择的人车物
+    $(document).on('click', '.shanchu', function () {
+        var tag = $(this).attr('tag');
+        var id = $(this).parent().parent().parent().parent().parent().parent().parent().children().eq(0);
+        id.val($.trim(id.val().replace(tag, '')));
+        $(this).parent().parent().remove();
+    })
+
+    $('#btnzong').click(function () {
+        submitpcp();
+    })
+
+    //提交数据
+    function submitpcp() {
+        var InOutType = $('.selectval').val();
+        var InOutTime = $('#DateTime').val();
+        var CheckTitle = $('#PeblishTitle').val();
+        var CheckContent = $('#PublishContent').val();
+        var people = $('#Peopleid').val().trim();
+        var car = $('#Carid').val().trim();
+        var product = $('#Productid').val().trim();
+
+
+
+
+        $.post('InsertMain/', { InOutType: InOutType, InOutTime: InOutTime, CheckTitle: CheckTitle, CheckContent: CheckContent, people: people, car: car, product: product }, function (data, status) {
+            if (status == 'success') {
+                if (data.msg == 'OK') {
+                    alert("提交成功！");
+                } else {
+                    alert("网络错误，请重新提交！");
+                }
+            }
+        })
+
+    }
+</script>

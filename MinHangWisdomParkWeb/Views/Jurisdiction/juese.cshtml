@@ -1,0 +1,258 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-xs-2"></div>
+            <div class="col-xs-6">
+                <select class="form-control " id="select">
+                    <option value="-1">请选择角色</option>
+                    @if (@ViewBag.ActorList != null)
+                    {
+                        foreach (MinHangWisdomParkWeb.Models.mtActor a in @ViewBag.ActorList as List<MinHangWisdomParkWeb.Models.mtActor>)
+                        {
+                            <option value="@a.ActorID">@a.ActorName</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" id="addmodal">+ 添加角色</button>
+            </div>
+        </div>
+        <div class="row" style="margin-top:2em;display:none;" id="rowcont">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" id="conte">
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="row " style="display:none;" id="anniu">
+    <div class="col-md-2"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-4 text-center">
+        <button type="button" class="btn btn-danger btn-lg btn-block" id="tijiao">编辑</button>
+    </div>
+    @*<div class="col-md-2 text-center">
+            <button type="button" class="btn btn-info">保存</button>
+        </div>*@
+    <div class="col-md-2"></div>
+    <div class="col-md-2"></div>
+</div>
+<br />
+<br />
+<br />
+
+
+
+
+
+
+
+
+<!-- 角色添加弹出层 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加权限</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <div class="input-group-addon">角色名称:</div>
+                            <input type="text" class="form-control" id="name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:2em;">
+                    <div class="col-md-12">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            @{
+                                int count = 0, oushu = 1;
+
+                            }
+                            @{
+                                foreach (MinHangWisdomParkWeb.Controllers.Menus i in MinHangWisdomParkWeb.Helps.MenuList())
+                                {
+                                    oushu = 1;
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingThree-@count">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree-@count" aria-expanded="false" aria-controls="collapseThree">
+                                                    @i.FunctionName
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        @if (count == 0)
+                                        {
+                                            <div id="collapseThree-@count" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+                                                <div class="panel-body">
+                                                    @foreach (var a in i.FunctionList)
+                                                    {
+                                                        <input type="checkbox" name="checkbox" value="@a.FunctionID">@a.FunctionName
+                                                        if (oushu % 3 == 0)
+                                                        {
+                                                            <br/>
+                                                        }
+                                                        oushu++;
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div id="collapseThree-@count" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                <div class="panel-body">
+                                                    @foreach (var a in i.FunctionList)
+                                                    {
+                                                        <input type="checkbox" name="checkbox" value="@a.FunctionID">@a.FunctionName
+                                                        if (oushu % 3 == 0)
+                                                        {
+                                                            <br/>
+                                                        }
+                                                        oushu++;
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    count++;
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="jueseadd">确认添加</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(".btn-danger").click(function () {
+
+    })
+
+    $("#select").change(function () {
+        if ($(this).val() == "-1") {
+            $("#rowcont").hide();
+            $("#anniu").hide();
+        } else {
+            $("#rowcont").show();
+            $("#anniu").show();
+        }
+    })
+
+
+    $('#addmodal').click(function () {
+        $("#name").val("");
+        $("#myModal input:checkbox").removeAttr("checked");
+
+    })
+
+    $('#jueseadd').click(function () {
+        var actorname = $("#name").val();
+        var str = '';
+        $('#myModal').find('input[name="checkbox"]').each(function () {
+            if ($(this).prop("checked") == true) {
+                str += ' ' + $(this).val();
+            }
+        })
+
+        if (str == '') {
+            alert("请选择网页！");
+            return false;
+        }
+        str = $.trim(str.replace(/\s+/g, " "));
+        $.post('ActorAddJson', { actorname: actorname, str: str }, function (data, status) {
+            if (status == 'success') {
+                if (data.msg == 'OK') {
+                    alert("添加成功！")
+                } else {
+                    alert("添加失败！")
+                }
+            }
+        })
+    })
+
+
+    $('#select').change(function () {
+        var actorid = $(this).val();
+        $.post('ActorPowerSelect', { actorid: actorid }, function (data, status) {
+            if (status == 'success') {
+                var str = '';
+                $.each(data, function (i, items) {
+                    var i = 1;
+                    str += '<div class="panel panel-default"><div class="panel-heading" role="tab" id="headingThree' + items.FunctionID + '">'
+                    + '<h4 class="panel-title"><a class="collaps" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree' + items.FunctionID + '" aria-expanded="false" aria-controls="collapseThree">'
+                    + items.FunctionName + '<span style="font-size:12px;">-点击展开</span></a></h4></div>'
+                    + '<div id="collapseThree' + items.FunctionID + '" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingThree">'
+                    + '<div class="panel-body">';
+                    $.each(items.List, function (i, item) {
+
+                        if (item.ischecked == true) {
+
+                            str += '<input type="checkbox" value="' + item.FunctionID + '" checked="checked" disabled="disabled">' + item.FunctionName;
+                        } else {
+                            str += '<input type="checkbox" value="' + item.FunctionID + '"  disabled="disabled">' + item.FunctionName;
+                        }
+                        i++;
+                    })
+                    str += '</div></div></div>';
+                })
+                $('#conte').empty().html(str);
+            }
+        }).error(function () {
+
+        })
+    })
+
+
+    $('#tijiao').click(function () {
+        var text = $(this).text();
+        if (text == "编辑") {
+            $(this).removeClass('btn-danger').addClass('btn-info').text("保存");
+            $("#conte input:checkbox").removeAttr("disabled");
+        } else if (text == "保存") {
+            var actorid = $('#select').val();
+            var str = '';
+            $("#conte input:checkbox").each(function () {
+                if ($(this).prop("checked") == true) {
+                    str += ' ' + $(this).val();
+                }
+            })
+            //alert(actorid)
+            //alert(str)
+            str = $.trim(str.replace(/\s+/g, " "));
+            $.post('ActorPowerUpdateJson', { actorid: actorid, str: str }, function (data, status) {
+                if (status == 'success') {
+                    if (data.msg == "OK") {
+                        alert("修改成功！")
+                        window.location.reload();
+                    } else {
+                        alert("修改失败！")
+                    }
+                }
+            })
+
+
+            $(this).removeClass('btn-info').addClass('btn-danger').text("编辑");
+            $("#conte input:checkbox").attr("disabled", "disabled");
+        }
+    })
+
+
+</script>

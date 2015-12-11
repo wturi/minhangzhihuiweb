@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<confirms>
+  <confirm Type="入驻">
+    <Cid>17</Cid>
+  </confirm>
+  <confirm Type="报修">
+    <Cid>19</Cid>
+  </confirm>
+  <confirm Type="挂失">
+    <Cid>19</Cid>
+  </confirm>
+  <confirm Type="制卡">
+    <Cid>19</Cid>
+  </confirm>
+  <confirm Type="施工">
+    <Cid>18</Cid>
+  </confirm>
+  <confirm Type="入园">
+    <Cid>16</Cid>
+  </confirm>
+  <confirm Type="信息">
+    <Cid>20</Cid>
+  </confirm>
+  <function Type="入驻企业申请">
+    <FuncNo>56</FuncNo>
+  </function>
+  <function Type="建设施工申请">
+    <FuncNo>57</FuncNo>
+  </function>
+  <function Type="正式出入园区">
+    <FuncNo>37</FuncNo>
+  </function>
+  <function Type="临时出入园区">
+    <FuncNo>40</FuncNo>
+  </function>
+</confirms>
